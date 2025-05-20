@@ -1,4 +1,4 @@
-import { Header } from "./Header";
+import { Header, Navigator } from "./";
 
 export const PageContainer = ({ children }) => {
   return (
@@ -13,6 +13,7 @@ export const PageContainer = ({ children }) => {
 
       <section className="grid w-full h-full grid-cols-1 px-4 mt-4 md:grid-cols-4 justify-items-center md:mt-10">
         <article className="order-1 h-full md:col-span-3">{children}</article>
+        <Navigator />
       </section>
     </div>
   );
