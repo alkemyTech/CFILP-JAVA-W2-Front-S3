@@ -1,0 +1,57 @@
+export const ReloadIcon = ({ className }) => {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <polyline
+        points="15.82 14.86 8.18 14.86 1.5 14.86 1.5 1.5 22.5 1.5 22.5 14.86 19.64 14.86"
+        stroke="currentColor"
+        strokeWidth="1.91"
+        strokeMiterlimit="10"
+        fill="none"
+      />
+      <path
+        d="M9.14,11.05h3.34a1.44,1.44,0,0,0,1.43-1.44h0a1.43,1.43,0,0,0-1.43-1.43h-1a1.43,1.43,0,0,1-1.43-1.43h0a1.43,1.43,0,0,1,1.43-1.43h3.34"
+        stroke="currentColor"
+        strokeWidth="1.91"
+        strokeMiterlimit="10"
+        fill="none"
+      />
+      <line
+        x1="12"
+        y1="3.41"
+        x2="12"
+        y2="5.32"
+        stroke="currentColor"
+        strokeWidth="1.91"
+        strokeMiterlimit="10"
+      />
+      <line
+        x1="12"
+        y1="11.05"
+        x2="12"
+        y2="12.95"
+        stroke="currentColor"
+        strokeWidth="1.91"
+        strokeMiterlimit="10"
+      />
+      <path
+        d="M17.73,22.5h0a6.52,6.52,0,0,0,1.91-4.61v-4A1.91,1.91,0,0,0,17.73,12h0a1.9,1.9,0,0,0-1.91,1.91v2.86l-.2.1a3.1,3.1,0,0,0-1.71,2.77h0"
+        stroke="currentColor"
+        strokeWidth="1.91"
+        strokeMiterlimit="10"
+        fill="none"
+      />
+      <path
+        d="M8.18,14.86v3a6.52,6.52,0,0,0,1.91,4.61"
+        stroke="currentColor"
+        strokeWidth="1.91"
+        strokeMiterlimit="10"
+        fill="none"
+      />
+    </svg>
+  );
+};
