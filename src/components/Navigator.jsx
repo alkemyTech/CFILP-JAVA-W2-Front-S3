@@ -13,7 +13,7 @@ const auxUser = {
 // Componente con los links de navegación de la app
 export const Navigator = () => {
   return (
-    <article className="w-full h-full md:flex md:flex-col">
+    <article className="w-full md:h-full md:flex md:flex-col h-min">
       <h2 className="hidden text-lg md:block">
         Hola,{" "}
         <b>
