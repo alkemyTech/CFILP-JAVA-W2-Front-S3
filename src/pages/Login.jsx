@@ -7,6 +7,7 @@ import { loginUser } from "../api/auth";
 import { isValidMail } from "../utils/isValidMail";
 import axios from "axios";
 import { toast } from "sonner";
+import {jwtDecode} from "jwt-decode";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -42,12 +43,15 @@ export const Login = () => {
     const controller = new AbortController();
     
     try {
-      const data = await loginUser(form, controller.signal);
+      const data = await loginUser({email: form.email, contrasenia: form.password}, controller.signal);
+      
+      const myDecodedToken = jwtDecode(data.token);
+      console.log(myDecodedToken)
+
       localStorage.setItem("token", data.token);
       toast.success("Inicio de sesión exitoso");
       navigate("/");
     } catch (err) {
-      localStorage.setItem("token", "token-de-prueba"); //! Esto es un error, cuando la database esté funcionando, se debe eliminar la linea
       toast.error(err.message);
       if (axios.isCancel(err)) return;
     }

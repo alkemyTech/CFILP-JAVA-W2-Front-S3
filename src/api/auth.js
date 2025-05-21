@@ -6,6 +6,6 @@ export async function registerUser(userData, signal) {
 }
 
 export async function loginUser(userData, signal) {
-  const response = await axios.post("/login", userData, { signal });
+  const response = await axios.post("http://localhost:8080/AlkemyPocket/usuarios/login", userData, { signal });
   return response.data;
 }
