@@ -7,6 +7,7 @@ import { loginUser } from "../api/auth";
 import { isValidMail } from "../utils/isValidMail";
 import axios from "axios";
 import { toast } from "sonner";
+import {jwtDecode} from "jwt-decode";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -43,6 +44,10 @@ export const Login = () => {
     
     try {
       const data = await loginUser({email: form.email, contrasenia: form.password}, controller.signal);
+      
+      const myDecodedToken = jwtDecode(data.token);
+      console.log(myDecodedToken)
+
       localStorage.setItem("token", data.token);
       toast.success("Inicio de sesión exitoso");
       navigate("/");
