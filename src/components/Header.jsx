@@ -1,9 +1,14 @@
+import { useNavigate } from "react-router";
 import alkemyLogo from "../assets/alkemy-logo.png";
 
 export const Header = () => {
   // Maneja el "cerrar sesión"
+  const navigateTo = useNavigate();
+
   function handleLogout() {
     // TODO - implementar cierre de sesion
+    localStorage.clear()
+    return navigateTo("/login")
   }
 
   return (

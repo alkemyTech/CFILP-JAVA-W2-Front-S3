@@ -20,18 +20,19 @@ export const HomeAccountComp = () => {
   }
 
   useEffect(() => {
-    return; // Cuando ya tengamos conectada la database eliminamos este return
+    return;
+
     const controller = new AbortController();
 
     setIsLoading(true);
     axios
-      .get(import.meta.env.VITE_API_GET_ACCOUNT_USER + "/id", {
+      .get(import.meta.env.VITE_API_GET_ACCOUNT_USER + `/${localStorage.getItem("id")}`, {
         signal: controller.signal,
       })
       .then((res) => {
         setIsLoading(false);
         setData(res.data);
-        console.log(res.data);
+        console.log(res);
       })
       .catch((error) => {
         setIsLoading(false);
