@@ -1,6 +1,6 @@
 import { Header, Navigator } from "./";
 
-export const PageContainer = ({ children }) => {
+export const PageContainer = ({ children }) => { 
   return (
     <div className="w-full h-screen max-h-screen px-4 mx-auto overflow-y-auto bg-gray-100 max-w-7xl">
       <Header />

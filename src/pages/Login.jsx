@@ -49,6 +49,8 @@ export const Login = () => {
       console.log(myDecodedToken)
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("id", myDecodedToken.userId)
+
       toast.success("Inicio de sesión exitoso");
       navigate("/");
     } catch (err) {

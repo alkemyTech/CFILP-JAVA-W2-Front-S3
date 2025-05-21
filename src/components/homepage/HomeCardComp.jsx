@@ -8,7 +8,7 @@ import cards from '../../mock/cards.json';
 export const HomeCardComp = () => {
   const navigateTo = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); 
   const [data, setData] = useState(cards);
   const [reload, setReload] = useState(false);
 
@@ -17,12 +17,12 @@ export const HomeCardComp = () => {
   }
 
   useEffect(() => {
-    return; // Cuando ya tengamos conectada la database eliminamos este return
+    
     const controller = new AbortController();
 
     setIsLoading(true);
     axios
-      .get(import.meta.env.VITE_API_GET_CARD_USER + "/id", {
+      .get(import.meta.env.VITE_API_GET_CARD_USER + `/${localStorage.getItem("id")}`, {
         signal: controller.signal,
       })
       .then((res) => {
