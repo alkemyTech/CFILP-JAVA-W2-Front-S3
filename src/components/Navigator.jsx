@@ -21,7 +21,7 @@ export const Navigator = () => {
         </b>
       </h2>
 
-      <nav className="flex items-center justify-center h-full md:flex-col gap-y-2 md:mt-4">
+      <nav className="flex items-center justify-start h-full md:flex-col gap-y-2 md:mt-4">
         <Link
           to={"/"}
           label={"Inicio"}
