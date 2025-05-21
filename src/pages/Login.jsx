@@ -42,12 +42,11 @@ export const Login = () => {
     const controller = new AbortController();
     
     try {
-      const data = await loginUser(form, controller.signal);
+      const data = await loginUser({email: form.email, contrasenia: form.password}, controller.signal);
       localStorage.setItem("token", data.token);
       toast.success("Inicio de sesión exitoso");
       navigate("/");
     } catch (err) {
-      localStorage.setItem("token", "token-de-prueba"); //! Esto es un error, cuando la database esté funcionando, se debe eliminar la linea
       toast.error(err.message);
       if (axios.isCancel(err)) return;
     }
