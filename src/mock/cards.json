@@ -1,0 +1,22 @@
+[
+  {
+    "numeroTarjeta": "4000111122223333",
+    "codigoSeguridad": "123",
+    "fechaVencimiento": "2027-06-01",
+    "compania": "Visa",
+    "tipo": "DEBITO",
+    "fechaEmision": "2023-05-01",
+    "particular": "Juan Perez",
+    "propia": "TERCERO"
+  },
+  {
+    "numeroTarjeta": "4000444455556666",
+    "codigoSeguridad": "456",
+    "fechaVencimiento": "2028-08-15",
+    "compania": "MasterCard",
+    "tipo": "CREDITO",
+    "fechaEmision": "2022-08-15",
+    "particular": "Juan Perez",
+    "propia": "PROPIA"
+  }
+]
