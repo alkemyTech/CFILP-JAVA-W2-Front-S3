@@ -11,7 +11,12 @@ export { HomeIcon } from "./icons/HomeIcon";
 export { CardIcon } from "./icons/CardIcon";
 export { ReloadIcon } from "./icons/ReloadIcon";
 export { TransferIcon } from "./icons/TransferIcon";
+export { CopyIcon } from "./icons/CopyIcon";
 
 // Componentes usados en el Home
 export { HomeCardComp } from "./homepage/HomeCardComp";
 export { HomeAccountComp } from "./homepage/HomeAccountComp";
+
+// Componentes usados en Accounts
+export { Account } from "./Account";
+export { AccountMovements } from "./AccountMovements";

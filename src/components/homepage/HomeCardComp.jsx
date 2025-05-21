@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { CardIcon } from "../icons/CardIcon";
 import { CustomButton } from "../CustomButton";
 import { useNavigate } from "react-router";
-import cards from '../../mock/cards.json';
+// import cards from "../../mock/cards.json";
 
 export const HomeCardComp = () => {
   const navigateTo = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null); 
-  const [data, setData] = useState(cards);
+  const [data, setData] = useState([]);
   const [reload, setReload] = useState(false);
 
   function handleReload() {
@@ -17,14 +17,18 @@ export const HomeCardComp = () => {
   }
 
   useEffect(() => {
-    
-    const controller = new AbortController();
 
+    const controller = new AbortController();
     setIsLoading(true);
+
     axios
-      .get(import.meta.env.VITE_API_GET_CARD_USER + `/${localStorage.getItem("id")}`, {
-        signal: controller.signal,
-      })
+      .get(
+        import.meta.env.VITE_API_GET_CARD_USER +
+          `/${localStorage.getItem("id")}`,
+        {
+          signal: controller.signal,
+        }
+      )
       .then((res) => {
         setIsLoading(false);
         setData(res.data);

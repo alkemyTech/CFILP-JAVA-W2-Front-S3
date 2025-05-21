@@ -5,14 +5,14 @@ import { useNavigate } from "react-router";
 import { CustomButton } from "../CustomButton";
 import { WalletIcon } from "../icons/WalletIcon";
 
-import accounts from "../../mock/accounts.json"
+//import accounts from "../../mock/accounts.json"
 
 
 export const HomeAccountComp = () => {
   const navigateTo = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const [data, setData] = useState(accounts);
+  const [data, setData] = useState([]);
   const [reload, setReload] = useState(false);
 
   function handleReload() {
