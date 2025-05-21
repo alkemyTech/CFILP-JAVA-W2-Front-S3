@@ -1,32 +1,46 @@
 import { isAuthenticated } from './utils/auth'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import { Navigate, Route, Routes } from 'react-router'
-import { Login, Register, Home } from './pages'
+import { Login, Register, Home, Accounts, Cards } from './pages'
 
 function App() {
 
   return (
-    <>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/accounts"
+        element={
+          <ProtectedRoute>
+            <Accounts />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/cards"
+        element={
+          <ProtectedRoute>
+            <Cards />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route
-          path="/login"
-          element={isAuthenticated() ? <Navigate to="/" /> : <Login />}
-        />
-        <Route
-          path="/register"
-          element={isAuthenticated() ? <Navigate to="/" /> : <Register />}
-        />
-      </Routes>
-    </>
+      <Route
+        path="/login"
+        element={isAuthenticated() ? <Navigate to="/" /> : <Login />}
+      />
+      <Route
+        path="/register"
+        element={isAuthenticated() ? <Navigate to="/" /> : <Register />}
+      />
+    </Routes>
   )
 }
 

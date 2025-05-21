@@ -63,7 +63,7 @@ function Link({ to, label, icon }) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex flex-col md:flex-row items-center md:items-end gap-x-2 cursor-pointer py-2 w-full max-w-20 md:max-w-full px-2 md:pl-2 ${
+        `flex flex-col md:flex-row items-center md:items-end gap-x-2 cursor-pointer py-2 w-full max-w-20 md:max-w-full ${
           isActive ? "text-sky-500" : "hover:text-neutral-500"
         }`
       }

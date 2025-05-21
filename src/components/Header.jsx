@@ -7,12 +7,12 @@ export const Header = () => {
   }
 
   return (
-    <header className="py-2 h-14 lg:h-16 w-full hidden md:flex md:items-center md:justify-between px-4">
+    <header className="py-2 h-14 lg:h-16 w-full hidden md:flex md:items-center md:justify-between ">
       <picture className="h-full">
         <img src={alkemyLogo} alt="Alkemy Logo" className="h-full" />
       </picture>
 
-      <nav className="flex items-center justify-end gap-4 h-full w-full px-3">
+      <nav className="flex items-center justify-end gap-4 h-full w-full pl-3 pr-4">
         <p className="text-sm italic text-neutral-500">
           Última conexión: 02/03/2025 - 13:24hs.
         </p>
