@@ -130,7 +130,7 @@ export const HomeCardComp = () => {
                       {item.tipo}
                     </small>
                   </strong>
-                  <small className="italic">{item.numeroTarjeta}</small>
+                  <small className="italic">************{item.numeroTarjeta}</small>
                 </div>
               </div>
 

@@ -20,7 +20,6 @@ export const HomeAccountComp = () => {
   }
 
   useEffect(() => {
-    return;
 
     const controller = new AbortController();
 
