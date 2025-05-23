@@ -25,4 +25,3 @@ export { AccountMovements } from "./AccountMovements";
 
 // Componentes usados en Cards
 export { Card } from "./Card";
-export { CardUsage } from "./CardUsage";
