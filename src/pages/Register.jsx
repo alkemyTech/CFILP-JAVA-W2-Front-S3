@@ -83,7 +83,7 @@ export const Register = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen min-w-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen min-w-screen bg-gray-100 m-8">
       <form
         onSubmit={handleSubmit}
         className="bg-white py-8 px-4 md:px-10 rounded-lg shadow-md w-full max-w-xl flex flex-col items-center"
