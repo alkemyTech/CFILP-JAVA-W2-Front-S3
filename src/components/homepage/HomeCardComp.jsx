@@ -30,6 +30,7 @@ export const HomeCardComp = () => {
         }
       )
       .then((res) => {
+        setError(null);
         setIsLoading(false);
         setData(res.data);
         console.log(res.data);
@@ -40,6 +41,7 @@ export const HomeCardComp = () => {
           console.log("Petición cancelada");
         } else {
           setError("Error al obtener el tipo de cambio");
+          setData([]);
         }
       });
 
