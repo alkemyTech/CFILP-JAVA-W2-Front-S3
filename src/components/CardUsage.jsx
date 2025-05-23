@@ -19,7 +19,7 @@ export const CardUsage = ({ card }) => {
     setIsLoading(true);
     axios
       .get(
-        import.meta.env.VITE_API_GET_ACCOUNT_USER + `/${card.numeroTarjeta}`,
+        import.meta.env.VITE_API_GET_CARD + `/${card.numeroTarjeta}`,
         {
           signal: controller.signal,
         }
