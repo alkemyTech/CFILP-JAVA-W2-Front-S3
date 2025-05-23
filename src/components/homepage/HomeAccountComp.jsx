@@ -135,12 +135,9 @@ export const HomeAccountComp = () => {
                   </strong>
                   <small className="italic">{item.numeroCuenta}</small>
                 </div>
-
-                {item.monto && (
-                  <strong title={item.monto} className="truncate">
-                    {item.monto} ${item.moneda}
-                  </strong>
-                )}
+                <strong title={item.monto} className="truncate">
+                  {item.monto} ${item.moneda}
+                </strong>
               </div>
 
               {index < 1 && data.length > 1 && (
