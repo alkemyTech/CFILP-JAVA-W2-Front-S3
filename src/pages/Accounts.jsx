@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 import accounts from "../mock/accounts.json";
+
 import { Account, AccountMovements, CustomButton } from "../components";
-import axios from "axios";
 
 export const Accounts = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +12,8 @@ export const Accounts = () => {
   const [reload, setReload] = useState(false);
 
   const [currentAccount, setCurrentAccount] = useState(accounts[0]);
+
+  // TODO - Hacer las transacciones
 
   function handleReload() {
     setReload(!reload);
@@ -24,7 +27,7 @@ export const Accounts = () => {
     axios
       .get(
         import.meta.env.VITE_API_GET_ACCOUNT_USER +
-          `/${localStorage.getItem("id")}`,
+          `/${JSON.parse(localStorage.getItem("user")).id}`,
         {
           signal: controller.signal,
         }
@@ -76,15 +79,20 @@ export const Accounts = () => {
       <section className="flex flex-col items-center justify-center gap-4 w-full lg:col-span-3">
         <article className="grid grid-cols-1 justify-items-center md:grid-cols-2 gap-4 w-full">
           {data.map((account, index) => (
-            <Account key={index} data={account} defaultSelected={index === 1} />
+            <Account
+              key={index}
+              data={account}
+              setCurrentAccount={setCurrentAccount}
+              isSelected={currentAccount.numeroCuenta === account.numeroCuenta}
+            />
           ))}
         </article>
         <AccountMovements account={currentAccount} />
       </section>
-      <article className="w-full flex flex-col items-start justify-start gap-4">
-        <div className="h-24 p-4 w-full bg-amber-400 rounded-md">
-          Nueva Transaccion
-        </div>
+      <article className="w-full flex flex-col items-center justify-start gap-4">
+        <button className="px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400">
+          Nueva transacción
+        </button>
       </article>
     </section>
   );
