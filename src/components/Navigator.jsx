@@ -1,9 +1,18 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 import { WalletIcon, HomeIcon, CardIcon, ReloadIcon, TransferIcon } from "./";
+import { LogoutIcon } from "./icons/LogoutIcon";
 
 // Componente con los links de navegación de la app
 export const Navigator = () => {
+  
+  const navigateTo = useNavigate();
+
+  function handleLogout() {
+    localStorage.clear();
+    navigateTo("/login");
+  }
+
   return (
     <article className="w-full md:h-full md:flex md:flex-col h-min">
       <h2 className="hidden text-lg md:block">
@@ -40,11 +49,15 @@ export const Navigator = () => {
           icon={<TransferIcon className={"h-4 w-4 md:h-7 md:w-7"} />}
         />
 
-        <Link
-          to={"/"}
-          label={"Salir"}
-          icon={<TransferIcon className={"h-4 w-4 md:h-7 md:w-7"} />}
-        />
+        <button
+          onClick={handleLogout}
+          className="flex flex-col md:flex-row items-center md:items-end gap-x-2 cursor-pointer py-2 w-full max-w-20 md:max-w-full hover:text-neutral-500"
+        >
+          <LogoutIcon className={"h-4 w-4 md:h-7 md:w-7"} />
+          <p className="text-xs font-medium md:text-base md:w-full text-start">
+            Salir
+          </p>
+        </button>
       </nav>
     </article>
   );

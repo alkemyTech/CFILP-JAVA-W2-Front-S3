@@ -12,6 +12,8 @@ export { CardIcon } from "./icons/CardIcon";
 export { ReloadIcon } from "./icons/ReloadIcon";
 export { TransferIcon } from "./icons/TransferIcon";
 export { CopyIcon } from "./icons/CopyIcon";
+export { VisaIcon } from "./icons/VisaIcon";
+export { MasterCardIcon } from "./icons/MasterCardIcon";
 
 // Componentes usados en el Home
 export { HomeCardComp } from "./homepage/HomeCardComp";
@@ -20,3 +22,7 @@ export { HomeAccountComp } from "./homepage/HomeAccountComp";
 // Componentes usados en Accounts
 export { Account } from "./Account";
 export { AccountMovements } from "./AccountMovements";
+
+// Componentes usados en Cards
+export { Card } from "./Card";
+export { CardUsage } from "./CardUsage";
