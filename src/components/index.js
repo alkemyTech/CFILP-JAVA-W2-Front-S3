@@ -14,6 +14,7 @@ export { TransferIcon } from "./icons/TransferIcon";
 export { CopyIcon } from "./icons/CopyIcon";
 export { VisaIcon } from "./icons/VisaIcon";
 export { MasterCardIcon } from "./icons/MastercardIcon";
+export { ExportIcon } from "./icons/ExportIcon";
 
 // Componentes usados en el Home
 export { HomeCardComp } from "./homepage/HomeCardComp";

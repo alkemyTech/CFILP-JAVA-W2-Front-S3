@@ -5,8 +5,14 @@ export const Header = () => {
   const navigateTo = useNavigate();
 
   function handleLogout() {
-    localStorage.clear()
-    navigateTo("/login")
+    try{
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      
+      navigateTo("/login");
+    }catch (error) {
+      console.error("Logout failed", error);
+    }
   }
 
   return (
