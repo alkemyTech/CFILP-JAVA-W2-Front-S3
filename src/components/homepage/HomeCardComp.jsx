@@ -134,7 +134,7 @@ export const HomeCardComp = () => {
                       {item.tipo}
                     </small>
                   </strong>
-                  <small className="italic">************{item.numeroTarjeta}</small>
+                  <small className="italic">************{item.numeroTarjeta.substring(item.numeroTarjeta.length - 4, item.numeroTarjeta.length)}</small>
                 </div>
               </div>
 
