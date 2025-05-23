@@ -1,8 +1,8 @@
 import { MasterCardIcon, VisaIcon } from "./";
 
 const cardsIcons = {
-  Visa: <VisaIcon className={"w-10 h-10"} />,
-  MasterCard: <MasterCardIcon className={"w-10 h-10"} />,
+  VISA: <VisaIcon className={"w-10 h-10"} />,
+  MASTERCARD: <MasterCardIcon className={"w-10 h-10"} />,
 };
 
 export const Card = ({ data, isSelected, setCurrentCard }) => {

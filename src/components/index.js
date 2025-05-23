@@ -13,7 +13,7 @@ export { ReloadIcon } from "./icons/ReloadIcon";
 export { TransferIcon } from "./icons/TransferIcon";
 export { CopyIcon } from "./icons/CopyIcon";
 export { VisaIcon } from "./icons/VisaIcon";
-export { MasterCardIcon } from "./icons/MasterCardIcon";
+export { MasterCardIcon } from "./icons/MastercardIcon";
 
 // Componentes usados en el Home
 export { HomeCardComp } from "./homepage/HomeCardComp";
@@ -25,4 +25,3 @@ export { AccountMovements } from "./AccountMovements";
 
 // Componentes usados en Cards
 export { Card } from "./Card";
-export { CardUsage } from "./CardUsage";

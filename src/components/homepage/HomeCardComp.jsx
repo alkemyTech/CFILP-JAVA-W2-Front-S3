@@ -30,6 +30,7 @@ export const HomeCardComp = () => {
         }
       )
       .then((res) => {
+        setError(null);
         setIsLoading(false);
         setData(res.data);
         console.log(res.data);
@@ -40,6 +41,7 @@ export const HomeCardComp = () => {
           console.log("Petición cancelada");
         } else {
           setError("Error al obtener el tipo de cambio");
+          setData([]);
         }
       });
 
@@ -134,7 +136,7 @@ export const HomeCardComp = () => {
                       {item.tipo}
                     </small>
                   </strong>
-                  <small className="italic">************{item.numeroTarjeta}</small>
+                  <small className="italic">************{item.numeroTarjeta.substring(item.numeroTarjeta.length - 4, item.numeroTarjeta.length)}</small>
                 </div>
               </div>
 

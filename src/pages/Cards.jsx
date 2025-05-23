@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, CardUsage, CustomButton } from "../components";
+import { Card , CustomButton } from "../components";
 
 import cards from "../mock/cards.json";
 
@@ -81,7 +81,6 @@ export const Cards = () => {
             />
           ))}
         </article>
-        <CardUsage card={currentCard} />
       </section>
       <article className="w-full flex flex-col items-center justify-start gap-4">
         <button className="px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400">

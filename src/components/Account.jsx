@@ -1,10 +1,16 @@
 import { CopyIcon } from "./icons/CopyIcon";
 
-export const Account = ({ data }) => {
-  console.log(data);
+export const Account = ({ data, isSelected, setCurrentAccount }) => {
+  function handleClick() {
+    setCurrentAccount(data);
+  }
+
   return (
     <article
-      className={`flex flex-col transition-shadow duration-300 ease-in-out bg-white border-l-4 border-4 border-white rounded-md border-l-sky-300 hover:shadow-md shadow-neutral-800/25 w-full p-4 pb-2`}
+      onClick={handleClick}
+      className={`flex flex-col transition-shadow duration-300 ease-in-out bg-white border-l-4 border-2 rounded-md  hover:shadow-md shadow-neutral-800/25 w-full p-4 pb-2 cursor-pointer ${
+        isSelected ? "border-sky-300" : "border-white border-l-sky-300"
+      }`}
     >
       <h3 className="font-medium text-lg">Saldo</h3>
       <span className="flex items-center justify-between text-2xl">

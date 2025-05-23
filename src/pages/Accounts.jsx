@@ -11,7 +11,7 @@ export const Accounts = () => {
   const [data, setData] = useState(accounts);
   const [reload, setReload] = useState(false);
 
-  const [currentAccount, setCurrentAccount] = useState(accounts[0]);
+  const [currentAccount, setCurrentAccount] = useState([]);
 
   // TODO - Hacer las transacciones
 
@@ -44,6 +44,7 @@ export const Accounts = () => {
           console.log("Petición cancelada");
         } else {
           setError("Error al obtener el tipo de cambio");
+          setCurrentAccount([]);
         }
       });
 
