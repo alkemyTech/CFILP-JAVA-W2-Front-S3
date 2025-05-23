@@ -66,16 +66,16 @@ export const Register = () => {
     // Envio la petición
     const controller = new AbortController();
     try {
-      const data = await registerUser({
+      await registerUser({
         nombre: form.name,
         apellido: form.lastname,
         email: form.email,
         telefono: form.tel,
         contrasenia: form.password
       }, controller.signal);
-      localStorage.setItem("token", data.token);
+
       toast.success("Usuario registrado con éxito");
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       toast.error(err.message);
       if (axios.isCancel(err)) return;
