@@ -1,0 +1,37 @@
+[
+  {
+    "a": "003-654321",
+    "monto": 50.00,
+    "fecha": "2023-01-20T10:00:00",
+    "tipo": "Transferencia",
+    "estado": "Completada"
+  },
+  {
+    "a": "004-789123",
+    "monto": 120.00,
+    "fecha": "2023-01-25T11:30:00",
+    "tipo": "Transferencia",
+    "estado": "Completada"
+  },
+  {
+    "a": "005-321987",
+    "monto": 75.50,
+    "fecha": "2023-02-05T09:45:00",
+    "tipo": "Transferencia",
+    "estado": "Completada"
+  },
+  {
+    "a": "006-456789",
+    "monto": 200.00,
+    "fecha": "2023-02-15T14:00:00",
+    "tipo": "Transferencia",
+    "estado": "Completada"
+  },
+  {
+    "a": "007-112233",
+    "monto": 60.25,
+    "fecha": "2023-03-01T16:20:00",
+    "tipo": "Transferencia",
+    "estado": "Completada"
+  }
+]

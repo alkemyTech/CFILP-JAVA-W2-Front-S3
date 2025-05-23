@@ -9,71 +9,30 @@
     "cvu": "0000000100000000000002"
   },
   {
-    "numeroCuenta": "002-123456",
-    "moneda": "USD",
-    "monto": 260.75,
-    "fecha": "2023-01-15T00:00:00",
-    "alias": "JUAN.PEREZ.DOLAR",
-    "tipo": "CA",
-    "cvu": "0000000100000000000002",
-    "movimientos":{
-      "ultimos":[
-        {
-          "de": "002-123456",
-          "a": "032-133255",
-          "monto": 100.00,
-          "fecha": "2023-01-15T00:00:00",
-          "tipo": "Transferencia",
-          "estado": "Completada"
-        }
-      ],
-      "historicos":[],
-      "pendientes":[]
-    }
+    "numeroCuenta": "003-654321",
+    "moneda": "ARS",
+    "monto": 15000.00,
+    "fecha": "2023-02-10T00:00:00",
+    "alias": "MARIA.GOMEZ.PESOS",
+    "tipo": "CC",
+    "cvu": "0000000100000000000003"
   },
   {
-    "numeroCuenta": "032-133255",
-    "moneda": "USD",
-    "monto": 260.75,
-    "fecha": "2023-01-15T00:00:00",
-    "alias": "JUAN.PEREZ.DOLAR",
+    "numeroCuenta": "004-789123",
+    "moneda": "EUR",
+    "monto": 500.50,
+    "fecha": "2023-03-05T00:00:00",
+    "alias": "CARLOS.ROMERO.EURO",
     "tipo": "CA",
-    "cvu": "0000000100000000000002"
+    "cvu": "0000000100000000000004"
   },
   {
-    "numeroCuenta": "002-123456",
-    "moneda": "USD",
-    "monto": 260.75,
-    "fecha": "2023-01-15T00:00:00",
-    "alias": "JUAN.PEREZ.DOLAR",
+    "numeroCuenta": "006-456789",
+    "moneda": "ARS",
+    "monto": 8000.75,
+    "fecha": "2023-05-12T00:00:00",
+    "alias": "PEDRO.SOSA.PESOS",
     "tipo": "CA",
-    "cvu": "0000000100000000000002"
-  },
-  {
-    "numeroCuenta": "002-123456",
-    "moneda": "USD",
-    "monto": 260.75,
-    "fecha": "2023-01-15T00:00:00",
-    "alias": "JUAN.PEREZ.DOLAR",
-    "tipo": "CA",
-    "cvu": "0000000100000000000002"
-  },
-  {
-    "numeroCuenta": "002-123456",
-    "moneda": "USD",
-    "monto": 260.75,
-    "fecha": "2023-01-15T00:00:00",
-    "alias": "JUAN.PEREZ.DOLAR",
-    "tipo": "CA",
-    "cvu": "0000000100000000000002"
-  },
-  {
-    "numeroCuenta": "002-123456",
-    "moneda": "USD",
-    "monto": 260.75,
-    "fecha": "2023-01-15T00:00:00",
-    "alias": "JUAN.PEREZ.DOLAR",
-    "tipo": "CA",
-    "cvu": "0000000100000000000002"
+    "cvu": "0000000100000000000006"
   }
 ]
