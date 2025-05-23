@@ -1,7 +1,7 @@
 import { isAuthenticated } from './utils/auth'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import { Navigate, Route, Routes } from 'react-router'
-import { Login, Register, Home, Accounts, Cards } from './pages'
+import { Login, Register, Home, Accounts, Cards, ImportMoney, ExportMoney, Transfer } from './pages'
 
 function App() {
 
@@ -28,6 +28,32 @@ function App() {
         element={
           <ProtectedRoute>
             <Cards />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/import"
+        element={
+          <ProtectedRoute>
+            <ImportMoney />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/export"
+        element={
+          <ProtectedRoute>
+            <ExportMoney />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/transfer"
+        element={
+          <ProtectedRoute>
+            <Transfer />
           </ProtectedRoute>
         }
       />

@@ -111,8 +111,8 @@ export const AccountMovements = ({ account }) => {
                 <p className="italic text-xs">Para: {movement.cuentaDestino}</p>
               </span>
               <span className="flex flex-col items-end justify-center">
-                <strong className={`${movement.impacto  === "EGRESO" ? "text-green-500" : "text-red-500"}`}>
-                  {movement.impacto  === "EGRESO" ? "+" : "-"} ${movement.monto}
+                <strong className={`${movement.impacto  === "EGRESO" ? "text-red-500" : "text-green-500"}`}>
+                  {movement.impacto  === "EGRESO" ? "-" : "+"} ${movement.monto}
                 </strong>
                 <small>{new Date(movement.fecha).toLocaleDateString()}</small>
               </span>
