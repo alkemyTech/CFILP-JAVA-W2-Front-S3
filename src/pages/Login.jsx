@@ -48,8 +48,8 @@ export const Login = () => {
       const myDecodedToken = jwtDecode(data.token);
       console.log(myDecodedToken)
 
+      localStorage.setItem("user", JSON.stringify(data.usuario));
       localStorage.setItem("token", data.token);
-      localStorage.setItem("id", myDecodedToken.userId)
 
       toast.success("Inicio de sesión exitoso");
       navigate("/");

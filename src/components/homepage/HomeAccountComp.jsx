@@ -25,7 +25,7 @@ export const HomeAccountComp = () => {
 
     setIsLoading(true);
     axios
-      .get(import.meta.env.VITE_API_GET_ACCOUNT_USER + `/${localStorage.getItem("id")}`, {
+      .get(import.meta.env.VITE_API_GET_ACCOUNT_USER + `/${JSON.parse(localStorage.getItem("user")).id}`, {
         signal: controller.signal,
       })
       .then((res) => {

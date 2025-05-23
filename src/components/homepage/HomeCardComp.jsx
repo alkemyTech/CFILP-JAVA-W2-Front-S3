@@ -24,7 +24,7 @@ export const HomeCardComp = () => {
     axios
       .get(
         import.meta.env.VITE_API_GET_CARD_USER +
-          `/${localStorage.getItem("id")}`,
+          `/${JSON.parse(localStorage.getItem("user")).id}`,
         {
           signal: controller.signal,
         }

@@ -2,14 +2,6 @@ import { NavLink } from "react-router";
 
 import { WalletIcon, HomeIcon, CardIcon, ReloadIcon, TransferIcon } from "./";
 
-const auxUser = {
-  id: "abcdef-ghijkl-mnopqrst-uvwxyz",
-  name: "Juan",
-  lastname: "Pérez",
-  email: "juan@perez.com",
-  tel: "+542302112345",
-};
-
 // Componente con los links de navegación de la app
 export const Navigator = () => {
   return (
@@ -17,7 +9,7 @@ export const Navigator = () => {
       <h2 className="hidden text-lg md:block">
         Hola,{" "}
         <b>
-          {auxUser.name} {auxUser.lastname}
+          {JSON.parse(localStorage.getItem("user")).nombre} {JSON.parse(localStorage.getItem("user")).apellido}
         </b>
       </h2>
 
