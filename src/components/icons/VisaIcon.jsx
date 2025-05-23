@@ -7,7 +7,7 @@ export const VisaIcon = ({ className }) => {
       viewBox="0 -140 780 780"
       enableBackground="new 0 0 780 500"
       version="1.1"
-      xml:space="preserve"
+      xmlSpace="preserve"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
