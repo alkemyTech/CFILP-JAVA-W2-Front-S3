@@ -46,7 +46,6 @@ export const Login = () => {
       const data = await loginUser({email: form.email, contrasenia: form.password}, controller.signal);
       
       const myDecodedToken = jwtDecode(data.token);
-      console.log(myDecodedToken)
 
       localStorage.setItem("user", JSON.stringify(data.usuario));
       localStorage.setItem("token", data.token);

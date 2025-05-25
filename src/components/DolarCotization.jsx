@@ -1,44 +1,15 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
 import dolarImg from "../assets/dolar-bg.webp";
+import { useFetch } from "../hooks/useFetch";
+import { getDolar } from "../api/dolar";
 
 export const DolarCotization = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState({});
-  const [reload, setReload] = useState(false);
+  const { data, error, fetch, isLoading } = useFetch(getDolar, {
+    autoFetch: true,
+  });
 
   function handleReload() {
-    setReload(!reload);
+    fetch();
   }
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    setIsLoading(true);
-    axios
-      .get(import.meta.env.VITE_API_DOLAR, {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setIsLoading(false);
-        setData(res.data);
-        console.info(res.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
-          console.error("Petición cancelada");
-        } else {
-          setError("Error al obtener el tipo de cambio");
-        }
-      });
-
-    return () => {
-      controller.abort(); // Se cancela si el componente se desmonta o cambia el efecto
-    };
-  }, [reload]);
 
   if (isLoading) {
     return (

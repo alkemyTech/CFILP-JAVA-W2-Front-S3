@@ -1,54 +1,21 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
 import { CardIcon } from "../icons/CardIcon";
 import { CustomButton } from "../CustomButton";
-import { useNavigate } from "react-router";
-// import cards from "../../mock/cards.json";
+import { useFetch } from "../../hooks/useFetch";
+import { getCards } from "../../api/account";
 
 export const HomeCardComp = () => {
   const navigateTo = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); 
-  const [data, setData] = useState([]);
-  const [reload, setReload] = useState(false);
+
+  const { isLoading, error, data, fetch } = useFetch(getCards, {
+    autoFetch: true,
+    error: "Error al obtener las tarjetas",
+  });
 
   function handleReload() {
-    setReload(!reload);
+    fetch();
   }
-
-  useEffect(() => {
-
-    const controller = new AbortController();
-    setIsLoading(true);
-
-    axios
-      .get(
-        import.meta.env.VITE_API_GET_CARD_USER +
-          `/${JSON.parse(localStorage.getItem("user")).id}`,
-        {
-          signal: controller.signal,
-        }
-      )
-      .then((res) => {
-        setError(null);
-        setIsLoading(false);
-        setData(res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
-          console.log("Petición cancelada");
-        } else {
-          setError("Error al obtener el tipo de cambio");
-          setData([]);
-        }
-      });
-
-    return () => {
-      controller.abort(); // Se cancela si el componente se desmonta o cambia el efecto
-    };
-  }, [reload]);
 
   if (isLoading) {
     return (
@@ -136,7 +103,13 @@ export const HomeCardComp = () => {
                       {item.tipo}
                     </small>
                   </strong>
-                  <small className="italic">************{item.numeroTarjeta.substring(item.numeroTarjeta.length - 4, item.numeroTarjeta.length)}</small>
+                  <small className="italic">
+                    ************
+                    {item.numeroTarjeta.substring(
+                      item.numeroTarjeta.length - 4,
+                      item.numeroTarjeta.length
+                    )}
+                  </small>
                 </div>
               </div>
 

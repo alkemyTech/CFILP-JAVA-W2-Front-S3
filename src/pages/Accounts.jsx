@@ -1,57 +1,28 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-import accounts from "../mock/accounts.json";
 
 import { Account, AccountMovements, CustomButton } from "../components";
+import { useFetch } from "../hooks/useFetch";
+import { getAccounts } from "../api/account";
 
 export const Accounts = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [data, setData] = useState(accounts);
-  const [reload, setReload] = useState(false);
-
   const [currentAccount, setCurrentAccount] = useState([]);
+  const { isLoading, error, data, fetch } = useFetch(getAccounts, {
+    autoFetch: true,
+    error: "Error al obtener las cuentas",
+  });
+  
+  useEffect(()=>{
+    
+    if(data.length === 0) return;
+
+    setCurrentAccount(data[0]);
+    
+  }, [data])
 
   // TODO - Hacer las transacciones
-
   function handleReload() {
-    setReload(!reload);
+    fetch();
   }
-
-  useEffect(() => {
-
-    const controller = new AbortController();
-
-    setIsLoading(true);
-    axios
-      .get(
-        import.meta.env.VITE_API_GET_ACCOUNT_USER +
-          `/${JSON.parse(localStorage.getItem("user")).id}`,
-        {
-          signal: controller.signal,
-        }
-      )
-      .then((res) => {
-        setIsLoading(false);
-        setData(res.data);
-        if (res.data.length > 0) setCurrentAccount(res.data[0]);
-        console.log(res);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
-          console.log("Petición cancelada");
-        } else {
-          setError("Error al obtener el tipo de cambio");
-          setCurrentAccount([]);
-        }
-      });
-
-    return () => {
-      controller.abort(); // Se cancela si el componente se desmonta o cambia el efecto
-    };
-  }, [reload]);
 
   if (isLoading) {
     return (
