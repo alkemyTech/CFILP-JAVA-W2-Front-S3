@@ -1,50 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Card , CustomButton } from "../components";
+import { useState } from "react";
+import { Card, CustomButton } from "../components";
 
 import cards from "../mock/cards.json";
+import { useFetch } from "../hooks/useFetch";
+import { getCards } from "../api/account";
 
 export const Cards = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [data, setData] = useState([]);
-  const [reload, setReload] = useState(false);
-  const [currentCard, setCurrentCard] = useState(cards[0]);
+  const [currentCard, setCurrentCard] = useState([]);
+  const { isLoading, error, data, fetch } = useFetch(getCards, {
+    autoFetch: true,
+    error: "Error al obtener las tarjetas",
+  });
 
   function handleReload() {
-    setReload(!reload);
+    fetch();
   }
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    setIsLoading(true);
-    axios
-      .get(
-        import.meta.env.VITE_API_GET_CARD_USER +
-          `/${JSON.parse(localStorage.getItem("user")).id}`,
-        {
-          signal: controller.signal,
-        }
-      )
-      .then((res) => {
-        setIsLoading(false);
-        setData(res.data);
-        if (res.data.length > 0) setCurrentCard(res.data[0]);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
-          console.log("Petición cancelada");
-        } else {
-          setError("Error al obtener el tipo de cambio");
-        }
-      });
-
-    return () => {
-      controller.abort(); // Se cancela si el componente se desmonta o cambia el efecto
-    };
-  }, [reload]);
 
   if (isLoading) {
     return (

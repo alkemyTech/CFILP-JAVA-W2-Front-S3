@@ -1,53 +1,21 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { CustomButton } from "./CustomButton";
-import movements from "../mock/movements.json";
+import { useFetch } from "../hooks/useFetch";
+import { getAccountMovements } from "../api/account";
 
 const options = ["Últimos movimientos", "Histórico", "Pendientes"];
 export const AccountMovements = ({ account }) => {
-  const [currentOption, setCurrentOption] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(movements);
-  const [reload, setReload] = useState(false);
+  const [currentOption] = useState(0);
+  const { data, error, isLoading, fetch } = useFetch(getAccountMovements);
 
   function handleReload() {
-    setReload(!reload);
+    fetch({ numeroCuenta: account.numeroCuenta } );
   }
 
   useEffect(() => {
-
-    const controller = new AbortController();
-
-    setIsLoading(true);
-    axios
-      .get(
-        import.meta.env.VITE_API_GET_ACCOUNT_TRANSACTIONS,
-        {
-          params: { numeroCuenta: account.numeroCuenta },
-          signal: controller.signal,
-        }
-      )
-      .then((res) => {
-        setError(null);
-        setIsLoading(false);
-        setData(res.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
-          console.log("Petición cancelada");
-        } else {
-          setError(error.message);
-          setData([]);
-        }
-      });
-
-    return () => {
-      controller.abort(); // Se cancela si el componente se desmonta o cambia el efecto
-    };
-  }, [reload, account.numeroCuenta]);
+    fetch({ numeroCuenta: account.numeroCuenta } );
+  }, [account.numeroCuenta]);
 
   if (isLoading) {
     return (
@@ -111,8 +79,14 @@ export const AccountMovements = ({ account }) => {
                 <p className="italic text-xs">Para: {movement.cuentaDestino}</p>
               </span>
               <span className="flex flex-col items-end justify-center">
-                <strong className={`${movement.impacto  === "EGRESO" ? "text-red-500" : "text-green-500"}`}>
-                  {movement.impacto  === "EGRESO" ? "-" : "+"} ${movement.monto}
+                <strong
+                  className={`${
+                    movement.impacto === "EGRESO"
+                      ? "text-red-500"
+                      : "text-green-500"
+                  }`}
+                >
+                  {movement.impacto === "EGRESO" ? "-" : "+"} ${movement.monto}
                 </strong>
                 <small>{new Date(movement.fecha).toLocaleDateString()}</small>
               </span>

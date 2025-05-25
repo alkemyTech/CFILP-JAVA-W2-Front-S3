@@ -1,11 +1,22 @@
 import axios from "axios";
+import { loadAbort } from "../utils/loadAbort";
 
-export async function registerUser(userData, signal) {
-  const response = await axios.post("http://localhost:8080/AlkemyPocket/usuarios", userData, { signal });
-  return response.data;
+export function registerUser(userData) {
+  const controller = loadAbort();
+  return {
+    call: axios.post(import.meta.env.VITE_API_REGISTER_USER, userData, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
 }
 
-export async function loginUser(userData, signal) {
-  const response = await axios.post("http://localhost:8080/AlkemyPocket/usuarios/login", userData, { signal });
-  return response.data;
+export function loginUser(userData) {
+  const controller = loadAbort();
+  return {
+    call: axios.post(import.meta.env.VITE_API_LOGIN_USER, userData, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
 }

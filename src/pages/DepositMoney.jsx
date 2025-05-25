@@ -1,16 +1,17 @@
-import axios from "axios";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 //import accounts from "../mock/accounts.json";
-import { importMoney } from "../api/account";
+import { getAccounts, depositMoney } from "../api/account";
 import { CustomButton } from "../components/CustomButton";
+import { useFetch } from "../hooks/useFetch";
 
-export const ImportMoney = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
-  const [reload, setReload] = useState(false);
+export const DepositMoney = () => {
+  const { data, error, isLoading, fetch } = useFetch(getAccounts, {
+    autoFetch: true,
+  });
+  const { isLoading: isLoadingDeposit, fetch: deposit } =
+    useFetch(depositMoney);
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -20,7 +21,7 @@ export const ImportMoney = () => {
   const [accountSelectionOpen, setAccountSelectionOpen] = useState(false);
 
   function handleReload() {
-    setReload(!reload);
+    fetch();
   }
 
   function handleAccountSelectionOpen() {
@@ -39,50 +40,17 @@ export const ImportMoney = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     if (!/^[1-9]\d*(\.\d{1,2})?$/.test(formData.monto)) {
       toast.error("Sin 0 al inicio y solo 2 decimales");
       return;
     }
 
-    const controller = new AbortController();
-    try {
-      await importMoney(formData, controller.signal);
-      toast.success("Transferencia hecha con éxito");
-    } catch (err) {
-      toast.error(err.message);
-      if (axios.isCancel(err)) return;
-    }
+    deposit({
+      params: formData,
+      success: "Dinero depositado exitosamente",
+      error: "Error al depositar el dinero, vuelve a intentarlo",
+    });
   }
-
-  useEffect(() => {
-
-    const controller = new AbortController();
-
-    setIsLoading(true);
-    axios
-      .get(import.meta.env.VITE_API_GET_ACCOUNT_USER + `/${JSON.parse(localStorage.getItem("user")).id}`, {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setError(null);
-        setIsLoading(false);
-        setData(res.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (axios.isCancel(error)) {
-          console.error("Petición cancelada");
-        } else {
-          setError("Error al obtener el tipo de cambio");
-          setData([]);
-        }
-      });
-
-    return () => {
-      controller.abort(); // Se cancela si el componente se desmonta o cambia el efecto
-    };
-  }, [reload]);
 
   if (isLoading) {
     return (
@@ -157,7 +125,7 @@ export const ImportMoney = () => {
         </div>
 
         <input
-          disabled={isLoading}
+          disabled={isLoadingDeposit}
           type="submit"
           value="Recargar dinero"
           className="flex px-4 py-2 mx-auto mt-10 font-bold rounded-md cursor-pointer bg-sky-300 hover:bg-sky-200 disabled:line-through disabled:text-neutral-500 disabled:bg-neutral-200 disabled:cursor-not-allowed"

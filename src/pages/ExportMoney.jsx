@@ -1,3 +1,137 @@
+import { toast } from "sonner";
+import { useState } from "react";
+
+//import accounts from "../mock/accounts.json";
+import { getAccounts, exportMoney } from "../api/account";
+import { CustomButton } from "../components/CustomButton";
+import { useFetch } from "../hooks/useFetch";
+
 export const ExportMoney = () => {
-  return <div></div>;
+  const { data, error, isLoading, fetch } = useFetch(getAccounts, {
+    autoFetch: true,
+  });
+  const { isLoading: isLoadingDeposit, fetch: expMoney } = useFetch(exportMoney);
+
+  const [formData, setFormData] = useState({
+    monto: "",
+    origen: "",
+  });
+  const [accountSelected, setAccountSelected] = useState([]);
+  const [accountSelectionOpen, setAccountSelectionOpen] = useState(false);
+
+
+
+  function handleReload() {
+    fetch();
+  }
+
+  function handleAccountSelectionOpen() {
+    setAccountSelectionOpen(!accountSelectionOpen);
+  }
+
+  function handleAccountSelection(account) {
+    setAccountSelected(account);
+    setFormData({ ...formData, origen: account.numeroCuenta });
+    setAccountSelectionOpen(false);
+  }
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!/^[1-9]\d*(\.\d{1,2})?$/.test(formData.monto)) {
+      toast.error("Sin 0 al inicio y solo 2 decimales");
+      return;
+    }
+
+    if (formData.monto > accountSelected.monto) {
+      toast.error("El valor es mayor al que posees");
+      return;
+    }
+
+    expMoney({
+      params: formData,
+      success: "Dinero extraido exitosamente",
+      error: "Error al extraer el dinero, vuelve a intentarlo",
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <article className="flex flex-col items-center w-full p-4 bg-white animate-pulse">
+        <div className="z-10 w-10 h-10 border-4 rounded-full animate-spin border-neutral-500 border-l-sky-400"></div>
+        <p className="mt-3 text-sm italic">
+          Cargando las cuentas del usuario...
+        </p>
+      </article>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center w-full p-4 bg-white">
+        <div className="flex flex-col items-center mb-5">
+          <h1 className="text-2xl font-bold text-red-500">
+            Error al cargar las cuentas
+          </h1>
+          <small className="text-sm italic">Por favor, intenta de nuevo</small>
+        </div>
+        <CustomButton label={"Reintentar"} onClick={handleReload} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-2 py-5 bg-white">
+      <form onSubmit={handleSubmit} className="">
+        <label htmlFor={"monto"} className="block mb-1 ml-1 font-medium">
+          Introduce el monto
+        </label>
+
+        <div className="flex items-center w-full gap-x-3">
+          <input
+            value={formData.monto}
+            onChange={handleChange}
+            name="monto"
+            placeholder="$0.00"
+            className="w-full p-2 border border-gray-300 rounded-md placeholder:italic"
+          />
+
+          <span className="relative w-full h-full">
+            <button
+              type="button"
+              onClick={handleAccountSelectionOpen}
+              className="flex w-full h-full px-4 py-2 mx-auto italic truncate border border-gray-300 rounded-md cursor-pointer"
+            >
+              {accountSelected.alias || "Selecciona una cuenta"}
+            </button>
+
+            {accountSelectionOpen && (
+              <div className="absolute w-full bg-white border border-gray-300 rounded-md">
+                {data.map((account, index) => (
+                  <button
+                    type="button"
+                    key={index}
+                    onClick={() => handleAccountSelection(account)}
+                    className="flex w-full h-full px-4 py-2 mx-auto text-sm italic truncate cursor-pointer hover:bg-neutral-200"
+                  >
+                    {account.alias}
+                  </button>
+                ))}
+              </div>
+            )}
+          </span>
+        </div>
+
+        <input
+          disabled={isLoadingDeposit}
+          type="submit"
+          value="Extraer dinero"
+          className="flex px-4 py-2 mx-auto mt-10 font-bold rounded-md cursor-pointer bg-sky-300 hover:bg-sky-200 disabled:line-through disabled:text-neutral-500 disabled:bg-neutral-200 disabled:cursor-not-allowed"
+        />
+      </form>
+    </div>
+  );
 };
