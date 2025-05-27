@@ -2,7 +2,8 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 //import accounts from "../mock/accounts.json";
-import { getAccounts, depositMoney } from "../api/account";
+import { getAccounts } from "../api/account";
+import { depositMoney } from "../api/money";
 import { CustomButton } from "../components/CustomButton";
 import { useFetch } from "../hooks/useFetch";
 
