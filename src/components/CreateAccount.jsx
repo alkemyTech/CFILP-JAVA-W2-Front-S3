@@ -7,12 +7,12 @@ import { CloseIcon } from "./icons/CloseIcon";
 
 const avaliable = {
   tipos: ["CA", "CC"],
-  monedas: ["USD", "EUR", "ARS"],
+  monedas: ["Dolar", "Ars", "Real", "Euro"],
 };
 export const CreateAccount = ({ setOpenCreateAccount, reload }) => {
   const [selectedTipo, setSelectedTipo] = useState("CA");
   const [openTipos, setOpenTipos] = useState(false);
-  const [selectedMoneda, setSelectedMoneda] = useState("ARS");
+  const [selectedMoneda, setSelectedMoneda] = useState("Ars");
   const [openMonedas, setOpenMonedas] = useState(false);
   const [acept, setAcept] = useState(false);
   const { isLoading, fetch } = useFetch(createAccount, {
