@@ -1,8 +1,9 @@
-import { MasterCardIcon, VisaIcon } from "./";
+import { AlkemyCardIcon, MasterCardIcon, VisaIcon } from "./";
 
 const cardsIcons = {
   VISA: <VisaIcon className={"w-10 h-10"} />,
   MASTERCARD: <MasterCardIcon className={"w-10 h-10"} />,
+  ALKEMY: <AlkemyCardIcon className={"w-10 h-10"} />,
 };
 
 export const Card = ({ data, isSelected, setCurrentCard }) => {
@@ -21,7 +22,9 @@ export const Card = ({ data, isSelected, setCurrentCard }) => {
         <p className="font-bold text-lg">{data.tipo}</p>
 
         <span className="flex flex-col items-end">
-          {cardsIcons[data.compania]}
+          {cardsIcons[data.compania] || (
+            <AlkemyCardIcon className={"w-10 h-10"} />
+          )}
           <p
             className={`font-bold ${
               isSelected ? "text-sky-300" : "text-neutral-400"

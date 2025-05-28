@@ -75,7 +75,10 @@ export const Accounts = () => {
       </article>
 
       {openCreateAccount && (
-        <CreateAccount setOpenCreateAccount={setOpenCreateAccount} />
+        <CreateAccount
+          setOpenCreateAccount={setOpenCreateAccount}
+          reload={handleReload}
+        />
       )}
     </section>
   );

@@ -58,12 +58,15 @@ export const Cards = () => {
           onClick={() => setOpenCreateCard(!openCreateCard)}
           className="w-full px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400"
         >
-          Crear tarketa
+          Asociar nueva tarjeta
         </button>
       </article>
 
       {openCreateCard && (
-        <CreateCardNoPropia setOpenCreateAccount={setOpenCreateCard} />
+        <CreateCardNoPropia
+          setOpenCreateCard={setOpenCreateCard}
+          reload={handleReload}
+        />
       )}
     </section>
   );

@@ -1,28 +1,30 @@
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 
-import { WalletIcon, HomeIcon, CardIcon, ReloadIcon, TransferIcon, ExportIcon } from "./";
+import {
+  WalletIcon,
+  HomeIcon,
+  CardIcon,
+  ReloadIcon,
+  TransferIcon,
+  ExportIcon,
+} from "./";
 import { LogoutIcon } from "./icons/LogoutIcon";
 
 // Componente con los links de navegación de la app
 export const Navigator = () => {
-  
-  const navigateTo = useNavigate();
-
-  function handleLogout() {
-    try{
-      localStorage.clear();
-      navigateTo("/login");
-    }catch (error) {
-      console.error("Logout failed", error);
-    }
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
 
   return (
     <article className="w-full md:h-full md:flex md:flex-col h-min">
       <h2 className="hidden text-lg md:block">
         Hola,{" "}
         <b>
-          {JSON.parse(localStorage.getItem("user")).nombre} {JSON.parse(localStorage.getItem("user")).apellido}
+          {JSON.parse(localStorage.getItem("user")).nombre}{" "}
+          {JSON.parse(localStorage.getItem("user")).apellido}
         </b>
       </h2>
 
@@ -47,7 +49,7 @@ export const Navigator = () => {
           label={"Recargar"}
           icon={<ReloadIcon className={"h-4 w-4 md:h-7 md:w-7"} />}
         />
-         <Link
+        <Link
           to={"/export"}
           label={"Extraer"}
           icon={<ExportIcon className={"h-4 w-4 md:h-7 md:w-7"} />}

@@ -11,8 +11,13 @@ export const DepositMoney = () => {
   const { data, error, isLoading, fetch } = useFetch(getAccounts, {
     autoFetch: true,
   });
-  const { isLoading: isLoadingDeposit, fetch: deposit } =
-    useFetch(depositMoney);
+  const { isLoading: isLoadingDeposit, fetch: deposit } = useFetch(
+    depositMoney,
+    {
+      success: "Dinero depositado exitosamente",
+      error: "Error al depositar el dinero, vuelve a intentarlo",
+    }
+  );
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -38,7 +43,7 @@ export const DepositMoney = () => {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-  console.log
+  console.log;
   async function handleSubmit(e) {
     e.preventDefault();
     if (!/^[1-9]\d*(\.\d{1,2})?$/.test(formData.monto)) {
@@ -47,7 +52,9 @@ export const DepositMoney = () => {
     }
 
     if (
-      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(accountSelected)
+      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(
+        accountSelected
+      )
     ) {
       toast.error("Selecciona una de tus cuentas");
       return;
@@ -55,8 +62,6 @@ export const DepositMoney = () => {
 
     deposit({
       params: formData,
-      success: "Dinero depositado exitosamente",
-      error: "Error al depositar el dinero, vuelve a intentarlo",
     });
   }
 

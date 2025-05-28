@@ -4,13 +4,14 @@ import { CustomInputForm } from "./CustomInputForm";
 import { useFetch } from "../hooks/useFetch";
 import { getAccounts } from "../api/account";
 import { createCardNoPropia } from "../api/card";
+import { CloseIcon } from "./icons/CloseIcon";
 
 const avaliable = {
   tipos: ["CREDITO", "DEBITO"],
   compania: ["VISA", "MASTERCARD", "ALKEMYCARD"],
 };
 
-export const CreateCardNoPropia = () => {
+export const CreateCardNoPropia = ({ setOpenCreateCard, reload }) => {
   const [acept, setAcept] = useState(false);
   const [formData, setFormData] = useState({
     numeroCuenta: "",
@@ -18,6 +19,7 @@ export const CreateCardNoPropia = () => {
     codigoSeguridad: "",
     compania: avaliable.compania[0],
     tipo: avaliable.tipos[0],
+    particular: "",
   });
   const [openTipos, setOpenTipos] = useState(false);
   const [openCompanias, setOpenCompanias] = useState(false);
@@ -32,9 +34,16 @@ export const CreateCardNoPropia = () => {
     {
       success: "Tarjeta creada exitosamente",
       error: "Error al crear la tarjeta, vuelve a intentarlo",
+      final: () => {
+        setOpenCreateCard(false);
+        reload();
+      },
     }
   );
-  // fechaEmision: new Date(Date.now()).toJSON()
+
+  function handleClose() {
+    setOpenCreateCard(false);
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -88,19 +97,15 @@ export const CreateCardNoPropia = () => {
 
     const venc = new Date(Date.now());
     venc.setFullYear(venc.getFullYear() + 5);
-    const particular =
-      JSON.parse(localStorage.getItem("user")).nombre +
-      " " +
-      JSON.parse(localStorage.getItem("user")).apellido;
 
     const body = {
-      numeroTarjeta: (formData.numeroTarjeta),
-      codigoSeguridad: (formData.codigoSeguridad),
-      tipo: (formData.tipo),
-      fechaVencimiento: (formatFechaDDMMYYYY(venc)),
-      compania: (formData.compania),
-      fechaEmision: (formatFechaDDMMYYYY(new Date())),
-      particular: (particular),
+      numeroTarjeta: formData.numeroTarjeta,
+      codigoSeguridad: formData.codigoSeguridad,
+      tipo: formData.tipo,
+      fechaVencimiento: formatFechaDDMMYYYY(venc),
+      compania: formData.compania,
+      fechaEmision: formatFechaDDMMYYYY(new Date()),
+      particular: formData.particular,
     };
 
     createCardNP({ idCuenta: formData.numeroCuenta, body });
@@ -112,17 +117,25 @@ export const CreateCardNoPropia = () => {
     const mes = String(d.getMonth() + 1).padStart(2, "0");
     const anio = d.getFullYear();
     return `${dia}/${mes}/${anio}`;
-}
-
+  }
 
   return (
     <section className="fixed top-0 left-0 flex items-center justify-center w-full h-full overflow-y-auto bg-black/50">
       <div className="flex flex-col items-center w-full max-w-md p-4 bg-white rounded-md shadow-lg overflow-y-auto max-h-full lg:max-h-[90vh]">
-        <h3 className="text-2xl font-bold">Asociar tarjeta a una cuenta</h3>
+        <span className="flex items-center w-full">
+          <h3 className="text-2xl font-bold w-full text-center">
+            Asociar tarjeta a una cuenta
+          </h3>
+          <button
+            onClick={handleClose}
+            className="hover:text-neutral-500 cursor-pointer"
+          >
+            <CloseIcon className={"w-8 h-8"} />
+          </button>
+        </span>
 
         <form className="flex flex-col items-center w-full mt-10">
           <CustomInputForm
-            err={"Número de tarjeta no válido"}
             label={"Introduce tu número de tarjeta"}
             name={"numeroTarjeta"}
             placeholder={"Ej: 1234 567"}
@@ -130,9 +143,16 @@ export const CreateCardNoPropia = () => {
             onChange={handleChange}
           />
 
+          <CustomInputForm
+            label={"Introduce el nombre del particular"}
+            name={"particular"}
+            placeholder={"Ej: Mariano Perez"}
+            value={formData.particular}
+            onChange={handleChange}
+          />
+
           <div className="flex items-start w-full mt-2 gap-x-4">
             <CustomInputForm
-              err={"Código de seguridad no válido"}
               label={"Código de seguridad"}
               name={"codigoSeguridad"}
               placeholder={"Ej: 123"}

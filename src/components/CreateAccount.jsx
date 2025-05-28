@@ -1,31 +1,39 @@
 import { useState } from "react";
 import { toast } from "sonner";
+
 import { useFetch } from "../hooks/useFetch";
 import { createAccount } from "../api/account";
+import { CloseIcon } from "./icons/CloseIcon";
 
 const avaliable = {
   tipos: ["CA", "CC"],
   monedas: ["USD", "EUR", "ARS"],
 };
-export const CreateAccount = ({ setOpenCreateAccount }) => {
+export const CreateAccount = ({ setOpenCreateAccount, reload }) => {
   const [selectedTipo, setSelectedTipo] = useState("CA");
   const [openTipos, setOpenTipos] = useState(false);
   const [selectedMoneda, setSelectedMoneda] = useState("ARS");
   const [openMonedas, setOpenMonedas] = useState(false);
   const [acept, setAcept] = useState(false);
-  const { isLoading, error, fetch } = useFetch(createAccount, {
+  const { isLoading, fetch } = useFetch(createAccount, {
     success: "Cuenta creada exitosamente",
     error: "Error al crear la cuenta, vuelve a intentarlo",
     final: () => {
       setOpenCreateAccount(false);
+      reload();
     },
   });
+
+  function handleClose() {
+    setOpenCreateAccount(false);
+  }
 
   function handleSelectedTipo(tipo) {
     setSelectedTipo(tipo);
     setOpenTipos(false);
   }
   function handleSelectedMoneda(moneda) {
+    console.log(moneda)
     setSelectedMoneda(moneda);
     setOpenMonedas(false);
   }
@@ -44,7 +52,17 @@ export const CreateAccount = ({ setOpenCreateAccount }) => {
   return (
     <section className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black/50">
       <div className="flex flex-col items-center w-full max-w-md p-4 bg-white rounded-md shadow-lg">
-        <h3 className="text-2xl font-bold">Crear una cuenta bancaria</h3>
+        <span className="flex items-center w-full">
+          <h3 className="text-2xl font-bold w-full text-center">
+            Crear una cuenta bancaria
+          </h3>
+          <button
+            onClick={handleClose}
+            className="hover:text-neutral-500 cursor-pointer"
+          >
+            <CloseIcon className={"w-8 h-8"} />
+          </button>
+        </span>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center w-full"

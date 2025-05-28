@@ -1,19 +1,11 @@
-import { useNavigate } from "react-router";
 import alkemyLogo from "../assets/alkemy-logo.png";
 
 export const Header = () => {
-  const navigateTo = useNavigate();
-
-  function handleLogout() {
-    try{
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      
-      navigateTo("/login");
-    }catch (error) {
-      console.error("Logout failed", error);
-    }
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
 
   return (
     <header className="py-2 h-14 lg:h-16 w-full hidden md:flex md:items-center md:justify-between ">

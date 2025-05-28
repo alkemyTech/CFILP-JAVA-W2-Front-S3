@@ -15,6 +15,9 @@ export { CopyIcon } from "./icons/CopyIcon";
 export { VisaIcon } from "./icons/VisaIcon";
 export { MasterCardIcon } from "./icons/MastercardIcon";
 export { ExportIcon } from "./icons/ExportIcon";
+export { AlkemyCardIcon } from "./icons/AlkemyCardIcon";
+
+export { CloseIcon } from "./icons/CloseIcon";
 
 // Componentes usados en el Home
 export { HomeCardComp } from "./homepage/HomeCardComp";
@@ -29,4 +32,4 @@ export { CreateAccount } from "./CreateAccount";
 export { Card } from "./Card";
 export { CreateCardNoPropia } from "./CreateCardNoPropia";
 
-export { RecentTransfer } from "./RecentTransfer"
+export { RecentTransfer } from "./RecentTransfer";

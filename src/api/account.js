@@ -29,8 +29,9 @@ export function getAccounts() {
 // TODO - Arreglar la ruta y los parametros
 export function createAccount(data) {
   const controller = loadAbort();
+
   return {
-    call: axios.get(
+    call: axios.post(
       import.meta.env.VITE_API_CREATE_ACCOUNT +
         `?moneda=${data.moneda}&tipo=${data.tipo}&usuarioId=${
           JSON.parse(localStorage.getItem("user")).id
