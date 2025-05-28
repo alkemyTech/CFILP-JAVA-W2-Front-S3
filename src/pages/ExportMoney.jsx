@@ -2,15 +2,22 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 //import accounts from "../mock/accounts.json";
-import { getAccounts, exportMoney } from "../api/account";
+import { getAccounts } from "../api/account";
 import { CustomButton } from "../components/CustomButton";
 import { useFetch } from "../hooks/useFetch";
+import { exportMoney } from "../api/money";
 
 export const ExportMoney = () => {
   const { data, error, isLoading, fetch } = useFetch(getAccounts, {
     autoFetch: true,
   });
-  const { isLoading: isLoadingDeposit, fetch: expMoney } = useFetch(exportMoney);
+  const { isLoading: isLoadingDeposit, fetch: expMoney } = useFetch(
+    exportMoney,
+    {
+      success: "Dinero extraido exitosamente",
+      error: "Error al extraer el dinero, vuelve a intentarlo",
+    }
+  );
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -18,8 +25,6 @@ export const ExportMoney = () => {
   });
   const [accountSelected, setAccountSelected] = useState([]);
   const [accountSelectionOpen, setAccountSelectionOpen] = useState(false);
-
-
 
   function handleReload() {
     fetch();
@@ -51,10 +56,17 @@ export const ExportMoney = () => {
       return;
     }
 
+    if (
+      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(
+        accountSelected.alias
+      )
+    ) {
+      toast.error("Selecciona una de tus cuentas");
+      return;
+    }
+
     expMoney({
       params: formData,
-      success: "Dinero extraido exitosamente",
-      error: "Error al extraer el dinero, vuelve a intentarlo",
     });
   }
 
@@ -101,11 +113,14 @@ export const ExportMoney = () => {
 
           <span className="relative w-full h-full">
             <button
+              disabled={data.length === 0}
               type="button"
               onClick={handleAccountSelectionOpen}
               className="flex w-full h-full px-4 py-2 mx-auto italic truncate border border-gray-300 rounded-md cursor-pointer"
             >
-              {accountSelected.alias || "Selecciona una cuenta"}
+              {data.length === 0
+                ? "No tienes cuentas"
+                : accountSelected.alias || "Selecciona una cuenta"}
             </button>
 
             {accountSelectionOpen && (

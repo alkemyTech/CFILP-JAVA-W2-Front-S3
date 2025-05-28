@@ -1,10 +1,19 @@
-import { isAuthenticated } from './utils/auth'
-import { ProtectedRoute } from './routes/ProtectedRoute'
-import { Navigate, Route, Routes } from 'react-router'
-import { Login, Register, Home, Accounts, Cards, ExportMoney, Transfer, DepositMoney } from './pages'
+import { isAuthenticated } from "./utils/auth";
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { Navigate, Route, Routes } from "react-router";
+import {
+  Login,
+  Register,
+  Home,
+  Accounts,
+  Cards,
+  ExportMoney,
+  Transfer,
+  DepositMoney,
+  Error,
+} from "./pages";
 
 function App() {
-
   return (
     <Routes>
       <Route
@@ -66,8 +75,10 @@ function App() {
         path="/register"
         element={isAuthenticated() ? <Navigate to="/" /> : <Register />}
       />
+
+      <Route path="/*" element={<Error />} />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;

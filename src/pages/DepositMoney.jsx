@@ -2,16 +2,22 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 //import accounts from "../mock/accounts.json";
-import { getAccounts, depositMoney } from "../api/account";
+import { getAccounts } from "../api/account";
 import { CustomButton } from "../components/CustomButton";
 import { useFetch } from "../hooks/useFetch";
+import { depositMoney } from "../api/money";
 
 export const DepositMoney = () => {
   const { data, error, isLoading, fetch } = useFetch(getAccounts, {
     autoFetch: true,
   });
-  const { isLoading: isLoadingDeposit, fetch: deposit } =
-    useFetch(depositMoney);
+  const { isLoading: isLoadingDeposit, fetch: deposit } = useFetch(
+    depositMoney,
+    {
+      success: "Dinero depositado exitosamente",
+      error: "Error al depositar el dinero, vuelve a intentarlo",
+    }
+  );
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -37,7 +43,7 @@ export const DepositMoney = () => {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-
+  console.log;
   async function handleSubmit(e) {
     e.preventDefault();
     if (!/^[1-9]\d*(\.\d{1,2})?$/.test(formData.monto)) {
@@ -45,10 +51,17 @@ export const DepositMoney = () => {
       return;
     }
 
+    if (
+      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(
+        accountSelected
+      )
+    ) {
+      toast.error("Selecciona una de tus cuentas");
+      return;
+    }
+
     deposit({
       params: formData,
-      success: "Dinero depositado exitosamente",
-      error: "Error al depositar el dinero, vuelve a intentarlo",
     });
   }
 
@@ -95,11 +108,12 @@ export const DepositMoney = () => {
 
           <span className="relative w-full h-full">
             <button
+              disabled={data.length === 0}
               type="button"
               onClick={handleAccountSelectionOpen}
               className="flex w-full h-full px-4 py-2 mx-auto italic truncate border border-gray-300 rounded-md cursor-pointer"
             >
-              {accountSelected}
+              {data.length === 0 ? "No tienes cuentas" : accountSelected}
             </button>
 
             {accountSelectionOpen && (

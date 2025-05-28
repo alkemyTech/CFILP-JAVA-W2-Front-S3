@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { CardIcon } from "../icons/CardIcon";
 import { CustomButton } from "../CustomButton";
 import { useFetch } from "../../hooks/useFetch";
-import { getCards } from "../../api/account";
+import { getCards } from "../../api/card";
 
 export const HomeCardComp = () => {
   const navigateTo = useNavigate();

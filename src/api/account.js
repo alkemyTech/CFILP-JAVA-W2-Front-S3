@@ -1,25 +1,13 @@
 import axios from "axios";
 import { loadAbort } from "../utils/loadAbort";
 
-// TODO -
-export function depositMoney(data) {
+// TODO - Arreglar la ruta y los parametros
+export function getRecentAccountsTrasnfer() {
   const controller = loadAbort();
   return {
-    call: axios.post(
-      import.meta.env.VITE_API_IMPORT_MONEY +
-        `?destino=${data.params.destino}&monto=${data.params.monto}`,
-      { signal: controller.signal }
-    ),
-    controller,
-  };
-}
-
-export function exportMoney(data) {
-  const controller = loadAbort();
-  return {
-    call: axios.post(
-      import.meta.env.VITE_API_EXPORT_MONEY +
-        `?origen=${data.params.origen}&monto=${data.params.monto}`,
+    call: axios.get(
+      import.meta.env.VITE_API_RECENT_ACCOUNTS_TRANSFER +
+        `/${JSON.parse(localStorage.getItem("user")).id}`,
       { signal: controller.signal }
     ),
     controller,
@@ -38,26 +26,30 @@ export function getAccounts() {
   };
 }
 
+// TODO - Arreglar la ruta y los parametros
+export function createAccount(data) {
+  const controller = loadAbort();
+
+  return {
+    call: axios.post(
+      import.meta.env.VITE_API_CREATE_ACCOUNT +
+        `?moneda=${data.moneda}&tipo=${data.tipo}&usuarioId=${
+          JSON.parse(localStorage.getItem("user")).id
+        }`,
+      { signal: controller.signal }
+    ),
+    controller,
+  };
+}
+
 export function getAccountMovements(params) {
   const controller = loadAbort();
-  
+
   return {
     call: axios.get(import.meta.env.VITE_API_GET_ACCOUNT_TRANSACTIONS, {
       params,
       signal: controller.signal,
     }),
-    controller,
-  };
-}
-
-export function getCards() {
-  const controller = loadAbort();
-  return {
-    call: axios.get(
-      import.meta.env.VITE_API_GET_CARD_USER +
-        `/${JSON.parse(localStorage.getItem("user")).id}`,
-      { signal: controller.signal }
-    ),
     controller,
   };
 }

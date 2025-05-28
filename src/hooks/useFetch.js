@@ -27,6 +27,7 @@ export const useFetch = (apiCall, options) => {
       })
       .finally(() => {
         setIsLoading(false);
+        if (options?.final) options.final();
       });
   }
 

@@ -1,4 +1,4 @@
 // Verifica si el token JWT está cargado en el storage
 export function isAuthenticated() {
-  return !!localStorage.getItem("token");
+  return Boolean(localStorage.getItem("token"));
 }

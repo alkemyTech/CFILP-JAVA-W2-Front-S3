@@ -5,12 +5,12 @@ export const CustomInputForm = ({
   type = "text",
   placeholder,
   value,
-  err,
+  err = {},
   onChange,
 }) => {
   return (
-    <div className="mb-3 w-full">
-      <label htmlFor={name} className="block mb-1 font-medium ml-1">
+    <div className="w-full mb-3">
+      <label htmlFor={name} className="block mb-1 ml-1 text-sm font-medium">
         {label}
       </label>
       <input
@@ -22,16 +22,18 @@ export const CustomInputForm = ({
         onChange={onChange}
         autoComplete="off"
         className={`w-full p-2 border rounded placeholder:italic ${
-          err.isWrong ? "border-red-300" : "border-gray-300"
+          err?.isWrong ? "border-red-300" : "border-gray-300"
         }`}
       />
-      <small
-        className={`text-red-400 italic text-xs ml-1 ${
-          err.isWrong ? "visible" : "invisible"
-        }`}
-      >
-        {err.message}
-      </small>
+      {err && (
+        <small
+          className={`text-red-400 italic text-xs ml-1 ${
+            err?.isWrong ? "visible" : "invisible"
+          }`}
+        >
+          {err?.message}
+        </small>
+      )}
     </div>
   );
 };

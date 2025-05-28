@@ -76,7 +76,7 @@ export const AccountMovements = ({ account }) => {
             >
               <span className="flex flex-col items-start justify-center">
                 <strong className="text-lg">{movement.tipoTransaccion}</strong>
-                <p className="italic text-xs">Para: {movement.cuentaDestino}</p>
+                <p className="italic text-xs">Para: {movement.tipoTransaccion === "EXTRACCION" ? movement.cuentaOrigen : movement.cuentaDestino}</p>
               </span>
               <span className="flex flex-col items-end justify-center">
                 <strong

@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Card, CustomButton } from "../components";
+import { Card, CreateCardNoPropia, CustomButton } from "../components";
 
 import cards from "../mock/cards.json";
 import { useFetch } from "../hooks/useFetch";
-import { getCards } from "../api/account";
+import { getCards } from "../api/card";
 
 export const Cards = () => {
+  const [openCreateCard, setOpenCreateCard] = useState(false);
   const [currentCard, setCurrentCard] = useState([]);
   const { isLoading, error, data, fetch } = useFetch(getCards, {
     autoFetch: true,
@@ -24,7 +25,7 @@ export const Cards = () => {
     );
   }
 
-  if (error) {
+  if (false) {
     return (
       <div className="flex flex-col items-center justify-start h-full mt-10">
         <div className="flex flex-col items-center mb-5">
@@ -39,9 +40,9 @@ export const Cards = () => {
   }
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4">
-      <section className="flex flex-col items-center justify-center gap-4 w-full lg:col-span-3">
-        <article className="grid grid-cols-1 justify-items-center md:grid-cols-2 gap-4 w-full">
+    <section className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-4">
+      <section className="flex flex-col items-center justify-center w-full gap-4 lg:col-span-3">
+        <article className="grid w-full grid-cols-1 gap-4 justify-items-center md:grid-cols-2">
           {data.map((card, index) => (
             <Card
               data={card}
@@ -52,11 +53,21 @@ export const Cards = () => {
           ))}
         </article>
       </section>
-      <article className="w-full flex flex-col items-center justify-start gap-4">
-        <button className="px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400">
-          Opciones
+      <article className="flex flex-col items-center justify-start w-full gap-4">
+        <button
+          onClick={() => setOpenCreateCard(!openCreateCard)}
+          className="w-full px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400"
+        >
+          Asociar nueva tarjeta
         </button>
       </article>
+
+      {openCreateCard && (
+        <CreateCardNoPropia
+          setOpenCreateCard={setOpenCreateCard}
+          reload={handleReload}
+        />
+      )}
     </section>
   );
 };
