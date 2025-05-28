@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
 
-import { Account, AccountMovements, CustomButton } from "../components";
+import {
+  Account,
+  AccountMovements,
+  CreateAccount,
+  CustomButton,
+} from "../components";
 import { useFetch } from "../hooks/useFetch";
 import { getAccounts } from "../api/account";
 
 export const Accounts = () => {
+  const [openCreateAccount, setOpenCreateAccount] = useState(false);
+
   const [currentAccount, setCurrentAccount] = useState([]);
   const { isLoading, error, data, fetch } = useFetch(getAccounts, {
     autoFetch: true,
     error: "Error al obtener las cuentas",
   });
-  
-  useEffect(()=>{
-    
-    if(data.length === 0) return;
+
+  useEffect(() => {
+    if (data.length === 0) return;
 
     setCurrentAccount(data[0]);
-    
-  }, [data])
+  }, [data]);
 
-  // TODO - Hacer las transacciones
   function handleReload() {
     fetch();
   }
@@ -32,7 +36,7 @@ export const Accounts = () => {
     );
   }
 
-  if (error) {
+  if (false) {
     return (
       <div className="flex flex-col items-center justify-start h-full mt-10">
         <div className="flex flex-col items-center mb-5">
@@ -62,10 +66,17 @@ export const Accounts = () => {
         <AccountMovements account={currentAccount} />
       </section>
       <article className="w-full flex flex-col items-center justify-start gap-4">
-        <button className="px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400">
-          Nueva transacción
+        <button
+          onClick={() => setOpenCreateAccount(true)}
+          className="px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400 w-full rounded-md"
+        >
+          Crear una cuenta
         </button>
       </article>
+
+      {openCreateAccount && (
+        <CreateAccount setOpenCreateAccount={setOpenCreateAccount} />
+      )}
     </section>
   );
 };

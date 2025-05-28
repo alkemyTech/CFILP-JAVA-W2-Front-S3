@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router";
 import { CustomInputForm } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import alkemyLogo from "../assets/alkemy-logo.png";
 import { loginUser } from "../api/auth";
 import { isValidMail } from "../utils/isValidMail";
-import axios from "axios";
-import { toast } from "sonner";
-import {jwtDecode} from "jwt-decode";
+import { useFetch } from "../hooks/useFetch";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -18,6 +16,11 @@ export const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
+  });
+  const {data, isLoading, fetch } = useFetch(loginUser, {
+    success: "Se ha iniciado sesión",
+    error: "Ha habido un error",
+
   });
 
   // Maneja el cambio de los inputs
@@ -39,24 +42,27 @@ export const Login = () => {
       },
     });
 
+    if (
+      !email ||
+      !isValidMail(email) ||
+      !password ||
+      password.length < 8 ||
+      password.length > 20
+    )
+      return;
+
+    console.log(error);
+
     // Envio la petición
-    const controller = new AbortController();
-    
-    try {
-      const data = await loginUser({email: form.email, contrasenia: form.password}, controller.signal);
-      
-      const myDecodedToken = jwtDecode(data.token);
-
-      localStorage.setItem("user", JSON.stringify(data.usuario));
-      localStorage.setItem("token", data.token);
-
-      toast.success("Inicio de sesión exitoso");
-      navigate("/");
-    } catch (err) {
-      toast.error(err.message);
-      if (axios.isCancel(err)) return;
-    }
+    fetch({ email: form.email, contrasenia: form.password });
   }
+
+  useEffect(()=>{
+    if(data.length === 0) return
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.usuario));
+    navigate("/");
+  },[data])
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -67,7 +73,7 @@ export const Login = () => {
         <img
           src={alkemyLogo}
           alt="Alkemy logo"
-          className="mb-10 max-w-md w-full mx-auto"
+          className="mb-10 max-w-xs w-full mx-auto"
         />
 
         <div className="w-full flex flex-col max-w-sm mb-4">
@@ -93,6 +99,7 @@ export const Login = () => {
         </div>
 
         <button
+          disabled={isLoading}
           type="submit"
           className="w-1/2 min-w-40 cursor-pointer font-bold bg-sky-600 text-white py-2 rounded hover:bg-sky-700 transition"
         >

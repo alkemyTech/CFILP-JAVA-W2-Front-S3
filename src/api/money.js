@@ -6,8 +6,8 @@ export function transferMoney(data) {
   const controller = loadAbort();
   return {
     call: axios.post(
-      import.meta.env.VITE_API_IMPORT_MONEY +
-        `?destino=${data.params.destino}&monto=${data.params.monto}`,
+      import.meta.env.VITE_API_TRANFER_MONEY +
+        `?origen=${data.params.origen}&destino=${data.params.destino}&monto=${data.params.monto}`,
       { signal: controller.signal }
     ),
     controller,

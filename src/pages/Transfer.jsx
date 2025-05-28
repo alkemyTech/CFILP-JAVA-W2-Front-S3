@@ -6,6 +6,7 @@ import { getAccounts, getRecentAccountsTrasnfer } from "../api/account";
 import { CustomButton } from "../components/CustomButton";
 import { useFetch } from "../hooks/useFetch";
 import { transferMoney } from "../api/money";
+import { RecentTransfer } from "../components";
 
 export const Transfer = () => {
   const { data, error, isLoading, fetch } = useFetch(getAccounts, {
@@ -23,13 +24,11 @@ export const Transfer = () => {
     useFetch(transferMoney);
   const [formData, setFormData] = useState({
     monto: "",
+    origen: "",
     destino: "",
-    alias: "",
   });
   const [accountSelected, setAccountSelected] = useState("Seleccionar cuenta");
   const [accountSelectionOpen, setAccountSelectionOpen] = useState(false);
-  const [destinySelected, setDestinySelected] = useState("Usados recientes");
-  const [destinySelectionOpen, setDestinySelectionOpen] = useState(false);
 
   function handleReload() {
     fetch();
@@ -39,20 +38,11 @@ export const Transfer = () => {
   function handleAccountSelectionOpen() {
     setAccountSelectionOpen(!accountSelectionOpen);
   }
-  function handleDestinyAccountSelectionOpen() {
-    setDestinySelectionOpen(!destinySelectionOpen);
-  }
 
-  function handleAccountSelection(accountAlias, destino) {
+  function handleAccountSelection(accountAlias, origen) {
     setAccountSelected(accountAlias);
-    setFormData({ ...formData, destino });
+    setFormData({ ...formData, origen });
     setAccountSelectionOpen(false);
-  }
-
-  function handleDestinyAccountSelection(alias) {
-    setDestinySelected(alias);
-    setFormData({ ...formData, alias });
-    setDestinySelectionOpen(false);
   }
 
   function handleChange(e) {
@@ -66,19 +56,19 @@ export const Transfer = () => {
       return;
     }
 
-    if (!/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(formData.alias)) {
-      toast.error(
-        "El alias debe tener 3 palabras, separadas por punto, de 4 a 9 letras cada una"
-      );
-      return;
-    }
+    // if (!/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(formData.destino)) {
+    //   toast.error(
+    //     "El alias debe tener 3 palabras, separadas por punto, de 4 a 9 letras cada una"
+    //   );
+    //   return;
+    // }
 
-    if (
-      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(accountSelected)
-    ) {
-      toast.error("Selecciona una de tus cuentas");
-      return;
-    }
+    // if (
+    //   !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(accountSelected)
+    // ) {
+    //   toast.error("Selecciona una de tus cuentas");
+    //   return;
+    // }
 
     transfer({
       params: formData,
@@ -142,7 +132,7 @@ export const Transfer = () => {
               </button>
 
               {accountSelectionOpen && (
-                <div className="absolute w-full bg-white z-30 border border-gray-300 rounded-md">
+                <div className="absolute w-full bg-white border border-gray-300 rounded-md">
                   {data.map((account, index) => (
                     <button
                       type="button"
@@ -170,44 +160,12 @@ export const Transfer = () => {
           </label>
           <div className="flex items-center w-full gap-x-3">
             <input
-              value={formData.alias}
+              value={formData.destino}
               onChange={handleChange}
-              name="alias"
+              name="destino"
               placeholder="Maria.Perez.Usd"
               className="w-full p-2 border border-gray-300 rounded-md placeholder:italic"
             />
-
-            <span className="relative w-full h-full">
-              <button
-                disabled={alias.length === 0}
-                type="button"
-                onClick={handleDestinyAccountSelectionOpen}
-                className="flex w-full h-full px-4 py-2 mx-auto italic truncate border border-gray-300 rounded-md cursor-pointer"
-              >
-                {isLoadingAlias
-                  ? "Cargando alias..."
-                  : alias.length === 0
-                  ? "No hay alias conocidos"
-                  : destinySelected}
-              </button>
-
-              {destinySelectionOpen && (
-                <div className="absolute w-full bg-white border border-gray-300 rounded-md">
-                  {alias.map((destinyAccount, index) => (
-                    <button
-                      type="button"
-                      key={index}
-                      onClick={() =>
-                        handleDestinyAccountSelection(destinyAccount.alias)
-                      }
-                      className="flex w-full h-full px-4 py-2 mx-auto text-sm italic truncate cursor-pointer hover:bg-neutral-200"
-                    >
-                      {destinyAccount.alias}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </span>
           </div>
         </article>
 
@@ -218,6 +176,8 @@ export const Transfer = () => {
           className="flex px-4 py-2 mx-auto mt-10 font-bold rounded-md cursor-pointer bg-sky-300 hover:bg-sky-200 disabled:line-through disabled:text-neutral-500 disabled:bg-neutral-200 disabled:cursor-not-allowed"
         />
       </form>
+
+      <RecentTransfer formData={formData} setFormData={setFormData} />
     </div>
   );
 };

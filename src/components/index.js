@@ -23,6 +23,10 @@ export { HomeAccountComp } from "./homepage/HomeAccountComp";
 // Componentes usados en Accounts
 export { Account } from "./Account";
 export { AccountMovements } from "./AccountMovements";
+export { CreateAccount } from "./CreateAccount";
 
 // Componentes usados en Cards
 export { Card } from "./Card";
+export { CreateCardNoPropia } from "./CreateCardNoPropia";
+
+export { RecentTransfer } from "./RecentTransfer"
