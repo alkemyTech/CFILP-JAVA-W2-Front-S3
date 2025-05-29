@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { toast } from "sonner";
-import axios from "axios";
 
 import alkemyLogo from "../assets/alkemy-logo.png";
 import { CustomInputForm } from "../components";
 import { isValidMail } from "../utils/isValidMail";
 import { isValidPhoneNumber } from "../utils/isValidPhone";
 import { registerUser } from "../api/auth";
+import { useFetch } from "../hooks/useFetch";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -31,6 +30,11 @@ export const Register = () => {
     confirmPassword: "",
   });
 
+  const { data, error: err, isLoading, fetch } = useFetch(registerUser, {
+    success: "Te has registrado con éxito",
+    error: "Ha habido un error",
+  });
+
   // Maneja el cambio de los inputs
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -39,6 +43,7 @@ export const Register = () => {
   // Maneja el envio
   async function handleSubmit(e) {
     e.preventDefault();
+
     const { name, lastname, email, tel, password, confirmPassword } = form;
 
     // Validaciones
@@ -63,24 +68,29 @@ export const Register = () => {
       },
     });
 
-    // Envio la petición
-    const controller = new AbortController();
-    try {
-      await registerUser({
-        nombre: form.name,
-        apellido: form.lastname,
-        email: form.email,
-        telefono: form.tel,
-        contrasenia: form.password
-      }, controller.signal);
+    if (!name || name.length < 3 || name.length > 20) return;
+    if (!lastname || lastname.length < 3 || lastname.length > 20) return;
+    if (!email || !isValidMail(email)) return;
+    if (!tel || !isValidPhoneNumber(tel)) return;
+    if (!password || password.length < 8 || password.length > 20) return;
+    if (password !== confirmPassword) return;
 
-      toast.success("Usuario registrado con éxito");
-      navigate("/login");
-    } catch (err) {
-      toast.error(err.message);
-      if (axios.isCancel(err)) return;
-    }
+    // Envio la petición
+    fetch({
+      nombre: form.name,
+      apellido: form.lastname,
+      email: form.email,
+      telefono: form.tel,
+      contrasenia: form.password,
+    });
+
   }
+
+  useEffect(()=>{
+    if(err!==null && !data) return
+
+    navigate("/login")
+  },[data,err])
 
   return (
     <div className="flex items-center justify-center min-h-screen min-w-screen bg-gray-100 m-8">
@@ -91,7 +101,7 @@ export const Register = () => {
         <img
           src={alkemyLogo}
           alt="Alkemy logo"
-          className="mb-10 max-w-md w-full mx-auto"
+          className="mb-10 max-w-xs w-full mx-auto"
         />
 
         <div className="flex items-start justify-between gap-x-3 w-full">
@@ -155,6 +165,7 @@ export const Register = () => {
         </div>
 
         <button
+          disabled={isLoading}
           type="submit"
           className="w-1/2 min-w-40  cursor-pointer font-bold bg-sky-600 text-white py-2 rounded hover:bg-sky-700 transition"
         >
