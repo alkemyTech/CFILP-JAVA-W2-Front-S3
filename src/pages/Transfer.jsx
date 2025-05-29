@@ -20,8 +20,11 @@ export const Transfer = () => {
     autoFetch: true,
   });
 
-  const { isLoading: isLoadingTrasnfer, fetch: transfer } =
-    useFetch(transferMoney);
+
+  const { error:err, isLoading: isLoadingTrasnfer, fetch: transfer } =
+    useFetch(transferMoney, {
+      success: "Trasnferencia hecha exitosamente",
+    });
   const [formData, setFormData] = useState({
     monto: "",
     origen: "",
@@ -72,8 +75,6 @@ export const Transfer = () => {
 
     transfer({
       params: formData,
-      success: "Trasnferencia hecha exitosamente",
-      error: "Error al transferir el dinero, vuelve a intentarlo",
     });
   }
 

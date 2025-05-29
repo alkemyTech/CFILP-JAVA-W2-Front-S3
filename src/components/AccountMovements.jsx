@@ -14,6 +14,7 @@ export const AccountMovements = ({ account }) => {
   }
 
   useEffect(() => {
+    if(!account.numeroCuenta) return;
     fetch({ numeroCuenta: account.numeroCuenta } );
   }, [account.numeroCuenta]);
 

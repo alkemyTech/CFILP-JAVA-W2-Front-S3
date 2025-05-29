@@ -20,10 +20,12 @@ export const useFetch = (apiCall, options) => {
         if (options?.success) toast.success(options.success);
       })
       .catch((err) => {
+        console.log(err)
         if (axios.isCancel()) {
         }
         setError(err.message || "Error inesperado");
-        if (options?.error) toast.error(options.error);
+        if (err?.response?.data) toast.error(err?.response?.data)
+        else if (options?.error) toast.error(options.error);
       })
       .finally(() => {
         setIsLoading(false);
