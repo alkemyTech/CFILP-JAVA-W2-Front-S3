@@ -12,7 +12,10 @@ export const DepositMoney = () => {
     autoFetch: true,
   });
   const { isLoading: isLoadingDeposit, fetch: deposit } =
-    useFetch(depositMoney);
+    useFetch(depositMoney, {
+      success: "Dinero depositado exitosamente",
+      error: "Error al depositar el dinero, vuelve a intentarlo",
+    });
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -55,8 +58,6 @@ export const DepositMoney = () => {
 
     deposit({
       params: formData,
-      success: "Dinero depositado exitosamente",
-      error: "Error al depositar el dinero, vuelve a intentarlo",
     });
   }
 

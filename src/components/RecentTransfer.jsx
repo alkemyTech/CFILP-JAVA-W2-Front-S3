@@ -14,8 +14,6 @@ export const RecentTransfer = ({ formData, setFormData }) => {
     setFormData({ ...formData, destino });
   }
 
-  console.log(data)
-
   function handleReload() {
     fetch();
   }
@@ -57,6 +55,7 @@ export const RecentTransfer = ({ formData, setFormData }) => {
         <article className="grid grid-cols-1 gap-5 mt-5 overflow-y-auto md:grid-cols-2 justify-items-center">
           {data.map((transfer, index) => (
             <div
+              key={index}
               onClick={() => handleClick(transfer?.alias, index)}
               className={`flex items-start justify-between w-full p-4 border rounded-md cursor-pointer border-neutral-200 ${
                 trasnferSelected === index

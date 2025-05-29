@@ -42,11 +42,12 @@ export function createAccount(data) {
 }
 
 export function getAccountMovements(params) {
-  const controller = loadAbort();
+  if(!params) return;
 
+  const controller = loadAbort();
+  
   return {
-    call: axios.get(import.meta.env.VITE_API_GET_ACCOUNT_TRANSACTIONS, {
-      params,
+    call: axios.get(`${import.meta.env.VITE_API_GET_ACCOUNT_TRANSACTIONS}?numeroCuenta=${params.numeroCuenta}`, {
       signal: controller.signal,
     }),
     controller,

@@ -12,7 +12,10 @@ export const ExportMoney = () => {
     autoFetch: true,
   });
   const { isLoading: isLoadingDeposit, fetch: expMoney } =
-    useFetch(exportMoney);
+    useFetch(exportMoney, {
+      success: "Dinero extraido exitosamente",
+      error: "Error al extraer el dinero, vuelve a intentarlo",
+    });
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -60,8 +63,6 @@ export const ExportMoney = () => {
 
     expMoney({
       params: formData,
-      success: "Dinero extraido exitosamente",
-      error: "Error al extraer el dinero, vuelve a intentarlo",
     });
   }
 
