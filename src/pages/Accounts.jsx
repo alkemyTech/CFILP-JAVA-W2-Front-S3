@@ -36,7 +36,7 @@ export const Accounts = () => {
     );
   }
 
-  if (false) {
+  if (error) {
     return (
       <div className="flex flex-col items-center justify-start h-full mt-10">
         <div className="flex flex-col items-center mb-5">

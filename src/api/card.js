@@ -13,19 +13,33 @@ export function getCards() {
   };
 }
 
-// TODO - Arreglar la ruta y los parametros
 export function createCardNoPropia(params) {
   const controller = loadAbort();
+  return {
+    call: axios.post(
+      import.meta.env.VITE_API_CREATE_CARD_NO_PROPIA + `/${params.idCuenta}`,
+      params.body,
+      {
+        signal: controller.signal,
+      }
+    ),
+    controller,
+  };
+}
 
+export function createCardPropia(data) {
+  const controller = loadAbort();
 
-  console.log(params.body)
-  console.log(import.meta.env.VITE_API_CREATE_CARD_NO_PROPIA + `/${params.idCuenta}`)
-
+  console.log(data);
+  console.log(data.params.nombreTitular)
 
   return {
-    call: axios.post(import.meta.env.VITE_API_CREATE_CARD_NO_PROPIA + `/${params.idCuenta}`,params.body, {
-      signal: controller.signal,
-    }),
+    call: axios.post(
+      import.meta.env.VITE_API_CREATE_CARD_PROPIA + `/${data.idCuenta}?nombreTitular=${data.params.nombreTitular}`,
+      {
+        signal: controller.signal,
+      }
+    ),
     controller,
   };
 }

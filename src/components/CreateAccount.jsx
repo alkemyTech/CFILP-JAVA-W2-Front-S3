@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useFetch } from "../hooks/useFetch";
 import { createAccount } from "../api/account";
 import { CloseIcon } from "./icons/CloseIcon";
-
+  
 const avaliable = {
   tipos: ["CA", "CC"],
   monedas: ["Dolar", "Ars", "Real", "Euro"],
@@ -12,10 +12,10 @@ const avaliable = {
 export const CreateAccount = ({ setOpenCreateAccount, reload }) => {
   const [selectedTipo, setSelectedTipo] = useState("CA");
   const [openTipos, setOpenTipos] = useState(false);
-  const [selectedMoneda, setSelectedMoneda] = useState("Ars");
+  const [selectedMoneda, setSelectedMoneda] = useState("ARS");
   const [openMonedas, setOpenMonedas] = useState(false);
   const [acept, setAcept] = useState(false);
-  const { isLoading, fetch } = useFetch(createAccount, {
+  const { isLoading, error, fetch } = useFetch(createAccount, {
     success: "Cuenta creada exitosamente",
     error: "Error al crear la cuenta, vuelve a intentarlo",
     final: () => {
@@ -33,7 +33,6 @@ export const CreateAccount = ({ setOpenCreateAccount, reload }) => {
     setOpenTipos(false);
   }
   function handleSelectedMoneda(moneda) {
-    console.log(moneda)
     setSelectedMoneda(moneda);
     setOpenMonedas(false);
   }

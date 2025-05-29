@@ -11,13 +11,8 @@ export const ExportMoney = () => {
   const { data, error, isLoading, fetch } = useFetch(getAccounts, {
     autoFetch: true,
   });
-  const { isLoading: isLoadingDeposit, fetch: expMoney } = useFetch(
-    exportMoney,
-    {
-      success: "Dinero extraido exitosamente",
-      error: "Error al extraer el dinero, vuelve a intentarlo",
-    }
-  );
+  const { isLoading: isLoadingDeposit, fetch: expMoney } =
+    useFetch(exportMoney);
 
   const [formData, setFormData] = useState({
     monto: "",
@@ -57,9 +52,7 @@ export const ExportMoney = () => {
     }
 
     if (
-      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(
-        accountSelected.alias
-      )
+      !/^[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}\.[a-zA-Z0-9]{3,9}$/.test(accountSelected.alias)
     ) {
       toast.error("Selecciona una de tus cuentas");
       return;
@@ -67,6 +60,8 @@ export const ExportMoney = () => {
 
     expMoney({
       params: formData,
+      success: "Dinero extraido exitosamente",
+      error: "Error al extraer el dinero, vuelve a intentarlo",
     });
   }
 
