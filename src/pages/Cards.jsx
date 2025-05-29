@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Card, CreateCardNoPropia, CustomButton } from "../components";
+import {
+  Card,
+  CreateCardNoPropia,
+  CreateCardPropia,
+  CustomButton,
+} from "../components";
 
 import cards from "../mock/cards.json";
 import { useFetch } from "../hooks/useFetch";
@@ -7,6 +12,7 @@ import { getCards } from "../api/card";
 
 export const Cards = () => {
   const [openCreateCard, setOpenCreateCard] = useState(false);
+  const [openCreateCardPropia, setOpenCreateCardPropia] = useState(false);
   const [currentCard, setCurrentCard] = useState([]);
   const { isLoading, error, data, fetch } = useFetch(getCards, {
     autoFetch: true,
@@ -25,7 +31,7 @@ export const Cards = () => {
     );
   }
 
-  if (false) {
+  if (error) {
     return (
       <div className="flex flex-col items-center justify-start h-full mt-10">
         <div className="flex flex-col items-center mb-5">
@@ -58,13 +64,25 @@ export const Cards = () => {
           onClick={() => setOpenCreateCard(!openCreateCard)}
           className="w-full px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400"
         >
-          Asociar nueva tarjeta
+          Asociar tarjeta
+        </button>
+        <button
+          onClick={() => setOpenCreateCardPropia(!openCreateCardPropia)}
+          className="w-full px-2 py-1 font-medium underline cursor-pointer hover:text-neutral-400"
+        >
+          Asociar mi tarjeta
         </button>
       </article>
 
       {openCreateCard && (
         <CreateCardNoPropia
           setOpenCreateCard={setOpenCreateCard}
+          reload={handleReload}
+        />
+      )}
+      {openCreateCardPropia && (
+        <CreateCardPropia
+          setOpenCreateCardPropia={setOpenCreateCardPropia}
           reload={handleReload}
         />
       )}

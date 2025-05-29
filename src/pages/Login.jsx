@@ -51,6 +51,8 @@ export const Login = () => {
     )
       return;
 
+    console.log(error);
+
     // Envio la petición
     fetch({ email: form.email, contrasenia: form.password });
   }

@@ -91,7 +91,7 @@ export const Register = () => {
         <img
           src={alkemyLogo}
           alt="Alkemy logo"
-          className="mb-10 max-w-xs w-full mx-auto"
+          className="mb-10 max-w-md w-full mx-auto"
         />
 
         <div className="flex items-start justify-between gap-x-3 w-full">

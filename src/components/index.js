@@ -31,5 +31,6 @@ export { CreateAccount } from "./CreateAccount";
 // Componentes usados en Cards
 export { Card } from "./Card";
 export { CreateCardNoPropia } from "./CreateCardNoPropia";
+export { CreateCardPropia } from "./CreateCardPropia";
 
 export { RecentTransfer } from "./RecentTransfer";
