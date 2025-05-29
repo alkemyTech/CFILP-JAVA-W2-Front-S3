@@ -87,6 +87,14 @@ export const Register = () => {
   }
 
   useEffect(()=>{
+    const { name, lastname, email, tel, password, confirmPassword } = form;
+    
+    if (!name || name.length < 3 || name.length > 20) return;
+    if (!lastname || lastname.length < 3 || lastname.length > 20) return;
+    if (!email || !isValidMail(email)) return;
+    if (!tel || !isValidPhoneNumber(tel)) return;
+    if (!password || password.length < 8 || password.length > 20) return;
+    if (password !== confirmPassword) return;
     if(err!==null && !data) return
 
     navigate("/login")
